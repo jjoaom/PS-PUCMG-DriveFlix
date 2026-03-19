@@ -1,4 +1,4 @@
-# Projeto de Software - Sistema de Aluguel de Carros
+# DriveFlix - Sistema de Aluguel de Carros
 
 ## Atividade Prática da Disciplina Projeto de Software
 
