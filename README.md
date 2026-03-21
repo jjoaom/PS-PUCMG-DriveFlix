@@ -30,13 +30,13 @@
 # Documentação
 
 * Diagrama de Casos de Uso
-> TO DO
+> ![Diagrama de Casos de Uso](./docs/DriveflixUserCase.svg)
 
 * Histórias do Usuário
 > TO DO
 
 * Diagrama de Classes
-> TO DO
+>![Diagrama de Classes](./docs/Driveflix.svg)
 
 * Diagrama de Pacotes
 > ON GOING
