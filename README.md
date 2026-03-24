@@ -33,7 +33,16 @@
 > ![Diagrama de Casos de Uso](./docs/DriveflixUserCase.svg)
 
 * Histórias do Usuário
-> TO DO
+>![Historias de Usuarios Driveflix_page-0001](https://github.com/user-attachments/assets/b14926f5-ceca-464c-834c-f32bbaac5075)
+
+
+
+
+* Requisitos
+>![Requisitos Driveflix_page-0001](https://github.com/user-attachments/assets/6c4ec9bc-a2bc-4bdd-9837-07ff220021b6)
+>![Requisitos Driveflix_page-0002](https://github.com/user-attachments/assets/a492dbbd-1d5f-49fa-af68-5277d6a14de5)
+>![Requisitos Driveflix_page-0003](https://github.com/user-attachments/assets/47d4df55-fb93-4422-b722-22e083845a5f)
+
 
 * Diagrama de Classes
 >![Diagrama de Classes](./docs/Driveflix.svg)
