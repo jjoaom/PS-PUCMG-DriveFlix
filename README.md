@@ -48,5 +48,4 @@
 >![Diagrama de Classes](./docs/Driveflix.svg)
 
 * Diagrama de Pacotes
-> ON GOING
-![Diagrama de Pacotes](./docs/Diagrama_Pacote.drawio.png)
+>![Diagrama de Pacotes](./docs/Diagrama_Pacote.svg)
