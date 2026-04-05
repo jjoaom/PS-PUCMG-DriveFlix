@@ -49,3 +49,7 @@
 
 * Diagrama de Pacotes
 >![Diagrama de Pacotes](./docs/Diagrama_Pacote.svg)
+
+* Diagrama de Componentes
+>ON GOING
+>![Diagrama de Componentes](./docs/Diagrama_Componentes.svg)
