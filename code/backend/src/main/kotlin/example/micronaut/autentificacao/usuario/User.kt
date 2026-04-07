@@ -1,14 +1,15 @@
 package example.micronaut.autentificacao.usuario
 
-import io.micronaut.data.annotation.*
+import jakarta.persistence.*
 
-@MappedEntity("users")
+@Entity
+@Table(name = "users")
 data class User(
 
-    @field:Id
-    @GeneratedValue(GeneratedValue.Type.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
-    val email: String,
-    val password: String
+    val email: String = "",
+    val password: String = ""
 )
