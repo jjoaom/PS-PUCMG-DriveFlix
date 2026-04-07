@@ -1,13 +1,19 @@
-import io.micronaut.data.annotation.*
-import io.micronaut.data.model.naming.NamingStrategies
+package example.micronaut.user
 
-@MappedEntity("users")
-data class User(
-    @field:Id
-    @GeneratedValue(GeneratedValue.Type.AUTO)
-    val id: Long = 0,
+import jakarta.persistence.*
 
-    val name: String = "",
-    val email: String = "",
-    val password: String = "",
-)
+@Entity
+@Table(name = "users")
+open class User(
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    open var id: Long? = null,
+
+    open var name: String = "",
+    open var email: String = "",
+    open var password: String = ""
+
+) {
+    constructor() : this(null, "", "", "")
+}
