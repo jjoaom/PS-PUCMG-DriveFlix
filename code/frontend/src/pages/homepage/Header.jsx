@@ -30,13 +30,13 @@ export default function Header() {
         </li>
 
         <li className="nav-item ms-auto">
-          <NavLink to="/perfil" className="nav-link cor_roxa">
+          <NavLink to="/login" className="nav-link cor_roxa">
             <RiLoginBoxLine /> Login
           </NavLink>
         </li>
 
         <li className="nav-item ms-auto">
-          <NavLink to="/perfil" className="nav-link cor_roxa">
+          <NavLink to="/registro" className="nav-link cor_roxa">
             <GoSignIn /> Cadastro
           </NavLink>
         </li>
