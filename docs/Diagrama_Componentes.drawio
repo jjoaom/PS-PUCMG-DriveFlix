@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:149.0) Gecko/20100101 Firefox/149.0">
   <diagram name="Página-1" id="e5-FRBqEhfiuGr_uiGbG">
-    <mxGraphModel dx="1414" dy="751" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1571" dy="2003" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -229,6 +229,30 @@
         </mxCell>
         <mxCell id="tQ0-4NWyVzJ9sl0xAGk9-87" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontStyle=2" value="GeneratePaymentMethod()" vertex="1">
           <mxGeometry height="30" width="60" x="710" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="J9uIdBIpxMA0Ll14GqSE-1" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="Database - Postgresql" vertex="1">
+          <mxGeometry height="200" width="151" x="339" y="-260" as="geometry" />
+        </mxCell>
+        <mxCell id="J9uIdBIpxMA0Ll14GqSE-2" parent="J9uIdBIpxMA0Ll14GqSE-1" style="shape=datastore;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="40" width="42" x="11" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="J9uIdBIpxMA0Ll14GqSE-6" parent="1" style="ellipse;whiteSpace=wrap;html=1;align=center;aspect=fixed;fillColor=none;strokeColor=none;resizable=0;perimeter=centerPerimeter;rotatable=0;allowArrows=0;points=[];outlineConnect=1;" value="" vertex="1">
+          <mxGeometry height="10" width="10" x="405" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="J9uIdBIpxMA0Ll14GqSE-10" edge="1" parent="1" source="tQ0-4NWyVzJ9sl0xAGk9-9" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=halfCircle;endFill=0;endSize=6;strokeWidth=1;sketch=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="430" y="125" as="sourcePoint" />
+            <mxPoint x="415" y="-30" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="J9uIdBIpxMA0Ll14GqSE-11" edge="1" parent="1" source="J9uIdBIpxMA0Ll14GqSE-1" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=oval;endFill=0;sketch=0;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;endSize=10;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="390" y="125" as="sourcePoint" />
+            <mxPoint x="415" y="-30" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="J9uIdBIpxMA0Ll14GqSE-12" parent="1" style="ellipse;whiteSpace=wrap;html=1;align=center;aspect=fixed;fillColor=none;strokeColor=none;resizable=0;perimeter=centerPerimeter;rotatable=0;allowArrows=0;points=[];outlineConnect=1;" value="" vertex="1">
+          <mxGeometry height="10" width="10" x="405" y="120" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

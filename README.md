@@ -27,6 +27,25 @@
 
 - João Paulo Aramuni
 
+
+# Como usar
+
+## BackEnd
+Para rodar a aplicação backend, acesse o terminal no diretório `/code` e digite:
+```
+docker-compose up
+```
+
+A aplicação será acessada através de ´localhost:8080´
+
+## FrontEnd
+Para rodar a aplicação frontend, acesse o terminal no diretório `/code/frontend` e digite:
+
+```
+npm run dev
+```
+A aplicação será acessada através de ´localhost:5173´
+
 # Documentação
 
 * Diagrama de Casos de Uso

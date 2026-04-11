@@ -1,0 +1,17 @@
+# Gradle
+.gradle/
+build/
+backend/build/
+*.jar
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Kotlin
+*.class
+
+# OS
+.DS_Store
+Thumbs.db

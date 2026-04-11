@@ -1,3 +1,4 @@
+/* Reset básico */
 html, body {
   margin: 0;
   padding: 0;
@@ -8,38 +9,76 @@ html, body {
 }
 
 #root {
-  height: 100%;
+  min-height: 100%;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 img {
   max-width: 100%;
   height: auto;
+  display: block;
 }
 
-header, footer {
-  max-width: 100%;
+header,
+footer {
+  width: 100%;
   overflow-x: hidden;
 }
 
-.cor_roxa{
-  color: #4c00ff;
-}
-.cor_roxa.active{
-  background-color: #3f0bb8 !important;
-  color: #fff !important;
-}
-.cor_roxa:active{
-  background-color: #3f0bb8 !important;
-  color: #fff !important;
-}
-.cor_roxa:hover{
-  color: #3c0a6b;
+.main-content {
+  min-height: calc(100vh - 80px);
 }
 
-.cor_roxa_bg{
-  background-color: #4c00ff;
+
+/* Tema roxo */
+
+
+:root {
+  --roxo: #4c00ff;
+  --roxo-dark: #3f0bb8;
+  --roxo-darker: #3c0a6b;
+  --white: #ffffff;
+}
+
+.cor_roxa {
+  color: var(--roxo);
+}
+
+.cor_roxa:hover {
+  color: var(--roxo-darker);
+}
+
+/* Estado ativo (NavLink usa .active) */
+.cor_roxa.active,
+.cor_roxa:active {
+  background-color: var(--roxo-dark);
+  color: var(--white);
+}
+
+/* Background */
+.cor_roxa_bg {
+  background-color: var(--roxo);
+  color: var(--white);
+  border: none;
+}
+
+.cor_roxa_bg:hover {
+  background-color: var(--roxo-dark);
+  color: var(--white);
+}
+
+.cor_roxa_bg:active,
+.cor_roxa_bg.active {
+  background-color: var(--roxo-dark);
+  color: var(--white);
+}
+
+/* Texto auxiliar */
+.cor_roxa_text {
+  color: var(--roxo);
 }

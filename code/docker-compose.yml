@@ -1,0 +1,60 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: postgres_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: appdb
+      POSTGRES_USER: avnadmin
+      POSTGRES_PASSWORD: AVNS_9lSBDz3jXFQYFgz9yrE
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - backend
+    security_opt:
+      - no-new-privileges:true
+    read_only: false
+    tmpfs:
+      - /tmp
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U avnadmin -d appdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: micronaut_app
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATASOURCES_DEFAULT_URL: jdbc:postgresql://db:5432/appdb
+      DATASOURCES_DEFAULT_USERNAME: avnadmin
+      DATASOURCES_DEFAULT_PASSWORD: AVNS_9lSBDz3jXFQYFgz9yrE
+      DATASOURCES_DEFAULT_DRIVER_CLASS_NAME: org.postgresql.Driver
+      DATASOURCES_DEFAULT_DIALECT: POSTGRES
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+    restart: unless-stopped
+
+    # Hardening
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    user: "1000:1000"
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  db_data:
