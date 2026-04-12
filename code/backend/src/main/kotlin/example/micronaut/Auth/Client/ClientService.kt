@@ -113,15 +113,19 @@ class ClientService(
     }
 
     fun update(id: Long, clientDTO: ClientDTO): ClientDTO {
-
         val existingClient = clientRepository.findById(id)
             .orElseThrow { RuntimeException("Cliente não encontrado") }
 
         val existingUser = existingClient.user
 
         val userWithEmail = userRepository.findByEmail(clientDTO.email)
-        if (userWithEmail.isPresent && userWithEmail.get().id != existingUser.id) {
+        if (userWithEmail != null && userWithEmail.id != existingUser.id) {
             throw RuntimeException("Email já está em uso")
+        }
+
+        val clientWithCpf = clientRepository.findByCpf(clientDTO.cpf)
+        if (clientWithCpf.isPresent && clientWithCpf.get().id != id) {
+            throw RuntimeException("CPF já está em uso")
         }
 
         val updatedUser = existingUser.copy(
@@ -130,11 +134,6 @@ class ClientService(
         )
 
         val savedUser = userRepository.update(updatedUser)
-
-        val clientWithCpf = clientRepository.findByCpf(clientDTO.cpf)
-        if (clientWithCpf.isPresent && clientWithCpf.get().id != id) {
-            throw RuntimeException("CPF já está em uso")
-        }
 
         val updatedClient = existingClient.copy(
             name = clientDTO.name,

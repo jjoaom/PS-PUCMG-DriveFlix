@@ -17,10 +17,11 @@ package example.micronaut.autentificacao.usuario
 
 import io.micronaut.data.annotation.Repository
 import io.micronaut.data.repository.CrudRepository
+import example.micronaut.autentificacao.usuario.User
 import java.util.*
 
 @Repository
 interface UserRepository : CrudRepository<User, Long> {
-    fun findByEmail(email: String): Optional<User>
+    fun findByEmail(email: String): User?
     fun existsByEmail(email: String): Boolean
 }
