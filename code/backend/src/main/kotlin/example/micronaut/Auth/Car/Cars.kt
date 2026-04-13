@@ -1,0 +1,22 @@
+package example.micronaut.autentificacao.car
+
+import io.micronaut.serde.annotation.Serdeable
+import jakarta.persistence.*
+
+@Serdeable
+@Entity
+@Table(name = "carros")
+data class Car(
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null,
+
+    val marca: String = "",
+    val modelo: String = "",
+    val placa: String = "",
+    val status: String = "",
+
+    @Column(name = "imagem_url")
+    val imagemUrl: String = ""
+)
