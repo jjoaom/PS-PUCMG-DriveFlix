@@ -20,7 +20,7 @@ class PedidoController(
     }
 
     @Get("/cliente/{clientId}")
-    fun listarPorCliente(clientId: Long): List<Pedido> {
+    fun listarPorCliente(clientId: Long): List<FiltarPedidoDTO> {
         return pedidoService.listarPorCliente(clientId)
     }
 }

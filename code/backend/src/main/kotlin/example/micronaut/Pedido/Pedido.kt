@@ -18,8 +18,8 @@ data class Pedido(
     val id: Long? = null,
 
     val dataCriacao: LocalDateTime = LocalDateTime.now(),
-    val status: String,
-    val parecerFinanceiro: String,
-    val clientId: Long,
-    val carId: Long
+    val status: String = "",
+    val parecerFinanceiro: String = "",
+    val clientId: Long = 0,
+    val carId: Long = 0
 )

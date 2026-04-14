@@ -28,7 +28,7 @@ export default function Header() {
         </li>
 
         <li className="nav-item">
-          <NavLink to="/pedidos" className="nav-link cor_roxa">
+          <NavLink to="/MeusPedidos" className="nav-link cor_roxa">
             <GiCarKey /> Pedidos
           </NavLink>
         </li>

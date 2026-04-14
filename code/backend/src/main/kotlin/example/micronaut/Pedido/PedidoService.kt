@@ -1,10 +1,12 @@
 package example.micronaut.pedido
 
+import example.micronaut.autentificacao.car.CarRepository
 import jakarta.inject.Singleton
 
 @Singleton
 class PedidoService(
-    private val pedidoRepository: PedidoRepository
+    private val pedidoRepository: PedidoRepository,
+    private val carRepository: CarRepository
 ) {
 
     fun criarPedido(dto: PedidoDTO): Pedido {
@@ -22,7 +24,22 @@ class PedidoService(
         return pedidoRepository.findAll().toList()
     }
 
-    fun listarPorCliente(clientId: Long): List<Pedido> {
-        return pedidoRepository.findByClientId(clientId)
+    fun listarPorCliente(clientId: Long): List<FiltarPedidoDTO> {
+        return pedidoRepository.findByClientId(clientId).mapNotNull { pedido ->
+
+            val carro = carRepository.findById(pedido.carId).orElse(null)
+                ?: return@mapNotNull null
+
+            FiltarPedidoDTO(
+                id = pedido.id,
+                dataPedido = pedido.dataCriacao.toString(),
+                status = pedido.status,
+                carId = carro.id,
+                marca = carro.marca,
+                modelo = carro.modelo,
+                placa = carro.placa,
+                imagemUrl = carro.imagemUrl
+            )
+        }
     }
 }
