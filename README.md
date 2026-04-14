@@ -70,5 +70,7 @@ A aplicação será acessada através de ´localhost:5173´
 >![Diagrama de Pacotes](./docs/Diagrama_Pacote.svg)
 
 * Diagrama de Componentes
->ON GOING
 >![Diagrama de Componentes](./docs/Diagrama_Componentes.svg)
+
+* Diagrama de Implanação
+>![Diagrama de Implantação](./docs/Diagrama_Implantacao.svg)
