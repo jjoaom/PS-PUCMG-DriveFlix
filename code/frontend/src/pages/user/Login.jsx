@@ -9,11 +9,17 @@ export default function Login() {
     const [accessType, setAccessType] = useState("");
     const [error, setError] = useState("");
 
+    // funçao de validaçao de tipo para id(sugestão sonar)
+    function isSafeLong(value) {
+        return Number.isInteger(value) && value >= 0 && Number.isSafeInteger(value);
+    }
+
+
     async function handleLogin(e) {
         e.preventDefault();
         setError("");
 
-        try {
+        try {            
             const response = await fetch("http://localhost:8080/auth/login", {
                 method: "POST",
                 headers: {
@@ -31,9 +37,17 @@ export default function Login() {
                 throw new Error(data.message || "Erro ao fazer login");
             }
 
-             // SALVA NO LOCALSTORAGE
-            localStorage.setItem("clientId", data.clientId);
-            localStorage.setItem("userId", data.userId);
+            const clientId = Number(data.clientId);
+            const userId = Number(data.userId);
+
+            // SALVA NO LOCALSTORAGE
+            if (isSafeLong(clientId)) {
+                localStorage.setItem("clientId", String(clientId));
+            }
+
+            if (isSafeLong(userId)) {
+                localStorage.setItem("userId", String(userId));
+            }
             console.log("Login OK:", data);
 
             // opcional: redirecionar

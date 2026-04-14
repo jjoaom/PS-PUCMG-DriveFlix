@@ -22,7 +22,8 @@ import jakarta.inject.Singleton
 @Singleton
 class ClientService(
     private val clientRepository: ClientRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val clientNotFound: String = "Cliente não encontrado"
 ) {
 
     fun register(clientDTO: ClientDTO): ClientDTO {
@@ -82,7 +83,7 @@ class ClientService(
 
     fun findById(id: Long): ClientDTO {
         val client = clientRepository.findById(id)
-            .orElseThrow { RuntimeException("Cliente não encontrado") }
+            .orElseThrow { RuntimeException(clientNotFound) }
 
         return ClientDTO(
             id = client.id,
@@ -114,7 +115,7 @@ class ClientService(
 
     fun update(id: Long, clientDTO: ClientDTO): ClientDTO {
         val existingClient = clientRepository.findById(id)
-            .orElseThrow { RuntimeException("Cliente não encontrado") }
+            .orElseThrow { RuntimeException(clientNotFound) }
 
         val existingUser = existingClient.user
 
@@ -160,7 +161,7 @@ class ClientService(
 
     fun delete(id: Long) {
         val client = clientRepository.findById(id)
-            .orElseThrow { RuntimeException("Cliente não encontrado") }
+            .orElseThrow { RuntimeException(clientNotFound) }
 
         clientRepository.deleteById(id)
         userRepository.deleteById(client.user.id!!)
