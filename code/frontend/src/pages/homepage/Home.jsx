@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Scene from "./Scene";
+import CarCard from "../../components/CarCard";
 
 export default function Home() {
   const [carros, setCarros] = useState([]);
@@ -45,28 +46,7 @@ export default function Home() {
         <div className="row g-4">
           {carros.map((carro) => (
             <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={carro.id}>
-              <div className="card h-100 shadow-sm">
-                <img
-                  src={carro.imagemUrl}
-                  alt={carro.modelo}
-                  className="card-img-top"
-                  style={{ height: "200px", objectFit: "cover" }}
-                />
-
-                <div className="card-body">
-                  <h5 className="card-title">
-                    {carro.marca} {carro.modelo}
-                  </h5>
-
-                  <p className="mb-1">
-                    <strong>Placa:</strong> {carro.placa}
-                  </p>
-
-                  <p className="mb-0">
-                    <strong>Status:</strong> {carro.status}
-                  </p>
-                </div>
-              </div>
+              <CarCard carro={carro} />
             </div>
           ))}
         </div>

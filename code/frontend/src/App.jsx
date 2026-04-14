@@ -3,6 +3,8 @@ import Header from "./pages/Header.jsx"
 import Home from "./pages/homepage/Home";
 import Cadastro from "./pages/user/Cadastro.jsx";
 import Login from "./pages/user/Login.jsx";
+import FormularioPedido from "./pages/Pedidos/FormularioPedido.jsx";
+
 //icones importados de https://react-icons.github.io/react-icons/ em cada componente segregado
 function App() {
 
@@ -13,6 +15,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
+        <Route path="/pedido/:carId" element={<FormularioPedido />} />
       </Routes>
     </>
   )

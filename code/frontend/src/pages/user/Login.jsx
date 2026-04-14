@@ -31,9 +31,9 @@ export default function Login() {
                 throw new Error(data.message || "Erro ao fazer login");
             }
 
-             // 🔥 SALVA NO LOCALSTORAGE
+             // SALVA NO LOCALSTORAGE
+            localStorage.setItem("clientId", data.clientId);
             localStorage.setItem("userId", data.userId);
-
             console.log("Login OK:", data);
 
             // opcional: redirecionar
