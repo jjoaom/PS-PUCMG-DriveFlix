@@ -28,23 +28,20 @@
 - João Paulo Aramuni
 
 
-# Como usar
+# Como rodar a aplicação
 
-## BackEnd
-Para rodar a aplicação backend, acesse o terminal no diretório `/code` e digite:
+## Dev
+
+Para rodar a aplicação em modo de desenvolvimento, acesse o terminal no diretório `/code` e digite:
 ```
 docker-compose up
 ```
+## Prod
 
-A aplicação será acessada através de ´localhost:8080´
-
-## FrontEnd
-Para rodar a aplicação frontend, acesse o terminal no diretório `/code/frontend` e digite:
-
+Para rodar a aplicação em modo de produção, acesse o terminal no diretório `/code` e digite:
 ```
-npm run dev
+docker compose -f docker-compose.prod.yml up --build   
 ```
-A aplicação será acessada através de ´localhost:5173´
 
 # Documentação
 
@@ -53,8 +50,6 @@ A aplicação será acessada através de ´localhost:5173´
 
 * Histórias do Usuário
 >![Historias de Usuarios Driveflix_page-0001](https://github.com/user-attachments/assets/b14926f5-ceca-464c-834c-f32bbaac5075)
-
-
 
 
 * Requisitos

@@ -14,7 +14,7 @@ export default function MeusPedidos() {
       return;
     }
 
-    fetch(`http://localhost:8080/pedidos/cliente/${clientId}`)
+    fetch(`/api/pedidos/cliente/${clientId}`)
       .then(async (res) => {
         if (!res.ok) {
           throw new Error("Erro ao buscar pedidos.");

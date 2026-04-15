@@ -26,7 +26,7 @@ export default function Cadastro() {
     }
 
     try {
-      const response = await fetch("http://localhost:8080/clients/register", {
+      const response = await fetch("/api/clients/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

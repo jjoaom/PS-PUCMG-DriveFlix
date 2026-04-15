@@ -26,7 +26,7 @@ export default function FormularioPedido() {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/pedidos", {
+      const response = await fetch("/api/pedidos", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

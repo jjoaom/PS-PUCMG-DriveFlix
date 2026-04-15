@@ -8,7 +8,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:8080/cars")
+    fetch("/api/cars")
       .then(async (res) => {
         if (!res.ok) {
           throw new Error(`Erro HTTP: ${res.status}`);

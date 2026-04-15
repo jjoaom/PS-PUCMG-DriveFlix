@@ -1,6 +1,6 @@
 services:
   db:
-    image: postgres:16-alpine
+    image: postgres:17-alpine
     container_name: postgres_db
     restart: unless-stopped
     environment:
@@ -25,7 +25,7 @@ services:
       timeout: 5s
       retries: 5
 
-  app:
+  backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -45,15 +45,23 @@ services:
       - backend
     restart: unless-stopped
 
-    # Hardening
-    security_opt:
-      - no-new-privileges:true
-    read_only: true
-    tmpfs:
-      - /tmp
-    cap_drop:
-      - ALL
-    user: "1000:1000"
+  frontend:
+      build:
+        context: ./frontend
+      container_name: vite_dev
+      working_dir: /app
+      volumes:
+        - ./frontend:/app
+        - /app/node_modules
+      ports:
+        - "5173:5173"
+      command: npm run dev -- --host 0.0.0.0 --port 5173
+      environment:
+        - CHOKIDAR_USEPOLLING=true
+      depends_on:
+        - backend
+      networks:
+        - backend
 
 networks:
   backend:
