@@ -28,5 +28,6 @@ data class ClientDTO(
     val cpf: String,
     val rg: String,
     val phone: String,
-    val address: String
+    val address: String,
+    val renda: Double
 )

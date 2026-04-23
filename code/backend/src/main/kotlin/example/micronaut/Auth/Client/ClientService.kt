@@ -50,6 +50,7 @@ class ClientService(
                 rg = clientDTO.rg,
                 phone = clientDTO.phone,
                 address = clientDTO.address,
+                renda = clientDTO.renda,
                 user = savedUser
             )
         )
@@ -62,7 +63,8 @@ class ClientService(
             cpf = savedClient.cpf,
             rg = savedClient.rg,
             phone = savedClient.phone,
-            address = savedClient.address
+            address = savedClient.address,
+            renda = savedClient.renda
         )
     }
 
@@ -76,7 +78,8 @@ class ClientService(
                 cpf = client.cpf,
                 rg = client.rg,
                 phone = client.phone,
-                address = client.address
+                address = client.address,
+                renda = client.renda
             )
         }
     }
@@ -93,7 +96,9 @@ class ClientService(
             cpf = client.cpf,
             rg = client.rg,
             phone = client.phone,
-            address = client.address
+            address = client.address,
+            renda = client.renda
+
         )
     }
 
@@ -109,7 +114,8 @@ class ClientService(
             cpf = client.cpf,
             rg = client.rg,
             phone = client.phone,
-            address = client.address
+            address = client.address,
+            renda = client.renda
         )
     }
 
@@ -142,6 +148,7 @@ class ClientService(
             rg = clientDTO.rg,
             phone = clientDTO.phone,
             address = clientDTO.address,
+            renda = clientDTO.renda,
             user = savedUser
         )
 
@@ -155,7 +162,9 @@ class ClientService(
             cpf = savedClient.cpf,
             rg = savedClient.rg,
             phone = savedClient.phone,
-            address = savedClient.address
+            address = savedClient.address,
+            renda = savedClient.renda
+
         )
     }
 

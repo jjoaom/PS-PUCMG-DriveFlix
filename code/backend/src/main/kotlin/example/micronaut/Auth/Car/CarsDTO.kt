@@ -7,6 +7,7 @@ import io.micronaut.serde.annotation.Serdeable
 @Introspected
 @Serdeable
 data class CarDTO(
+    val id: Long?,
     val marca: String,
     val modelo: String,
     val placa: String,

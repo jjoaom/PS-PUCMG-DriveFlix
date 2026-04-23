@@ -18,6 +18,7 @@ package example.micronaut.autentificacao.cliente
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.*
 
+
 @Controller("/clients")
 class ClientController(
     private val clientService: ClientService

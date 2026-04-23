@@ -9,6 +9,7 @@ class CarService(
     fun listarTodos(): List<CarDTO> {
         return carRepository.findAll().map { car ->
             CarDTO(
+                id = car.id,
                 marca = car.marca,
                 modelo = car.modelo,
                 placa = car.placa,

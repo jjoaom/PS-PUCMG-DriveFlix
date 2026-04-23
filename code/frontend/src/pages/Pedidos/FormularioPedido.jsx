@@ -11,7 +11,7 @@ export default function FormularioPedido() {
   const enviarFormulario = async (e) => {
     e.preventDefault();
 
-    const clientId = localStorage.getItem("userId");
+    const clientId = localStorage.getItem("clientId");
 
     if (!clientId) {
       alert("ID do cliente não encontrado no localStorage.");

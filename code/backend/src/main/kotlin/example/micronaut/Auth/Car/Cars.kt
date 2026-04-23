@@ -11,7 +11,6 @@ data class Car(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
-
     val marca: String = "",
     val modelo: String = "",
     val placa: String = "",

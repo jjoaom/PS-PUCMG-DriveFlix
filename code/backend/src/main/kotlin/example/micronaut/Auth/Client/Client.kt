@@ -31,6 +31,7 @@ data class Client(
     val rg: String = "",
     val phone: String = "",
     val address: String = "",
+    val renda: Double = 0.00,
 
     @OneToOne
     @JoinColumn(name = "user_id", unique = true, nullable = false)
