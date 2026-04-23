@@ -11,5 +11,6 @@ data class CarDTO(
     val modelo: String,
     val placa: String,
     val status: String,
-    val imagemUrl: String
+    val imagemUrl: String,
+    val preco: Double
 )

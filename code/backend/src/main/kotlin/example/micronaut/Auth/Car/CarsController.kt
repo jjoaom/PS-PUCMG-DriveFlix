@@ -7,6 +7,9 @@ import io.micronaut.http.annotation.Get
 class CarController(
     private val carService: CarService
 ) {
+
     @Get
-    fun listarTodos(): List<Car> = carService.listarTodos()
+    fun listar(): List<CarDTO> {
+        return carService.listarTodos()
+    }
 }

@@ -16,6 +16,7 @@ data class Car(
     val modelo: String = "",
     val placa: String = "",
     val status: String = "",
+    val preco: Double = 0.0,
 
     @Column(name = "imagem_url")
     val imagemUrl: String = ""

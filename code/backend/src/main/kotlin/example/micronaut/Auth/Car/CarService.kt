@@ -6,5 +6,16 @@ import jakarta.inject.Singleton
 class CarService(
     private val carRepository: CarRepository
 ) {
-    fun listarTodos(): List<Car> = carRepository.findAll().toList()
+    fun listarTodos(): List<CarDTO> {
+        return carRepository.findAll().map { car ->
+            CarDTO(
+                marca = car.marca,
+                modelo = car.modelo,
+                placa = car.placa,
+                status = car.status,
+                imagemUrl = car.imagemUrl,
+                preco = car.preco
+            )
+        }
+    }
 }
