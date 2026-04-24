@@ -1,18 +1,3 @@
-/*
- * Copyright 2026 original authors
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package example.micronaut.autentificacao.cliente
 
 import example.micronaut.autentificacao.usuario.User
@@ -22,12 +7,12 @@ import jakarta.inject.Singleton
 @Singleton
 class ClientService(
     private val clientRepository: ClientRepository,
-    private val userRepository: UserRepository,
-    private val clientNotFound: String = "Cliente não encontrado"
+    private val userRepository: UserRepository
 ) {
 
-    fun register(clientDTO: ClientDTO): ClientDTO {
+    private val clientNotFound = "Cliente não encontrado"
 
+    fun register(clientDTO: ClientDTO): ClientDTO {
         if (userRepository.existsByEmail(clientDTO.email)) {
             throw RuntimeException("Email já cadastrado")
         }
@@ -55,68 +40,25 @@ class ClientService(
             )
         )
 
-        return ClientDTO(
-            id = savedClient.id,
-            email = savedUser.email,
-            password = savedUser.password,
-            name = savedClient.name,
-            cpf = savedClient.cpf,
-            rg = savedClient.rg,
-            phone = savedClient.phone,
-            address = savedClient.address,
-            renda = savedClient.renda
-        )
+        return toDTO(savedClient)
     }
 
     fun findAll(): List<ClientDTO> {
-        return clientRepository.findAll().map { client ->
-            ClientDTO(
-                id = client.id,
-                email = client.user.email,
-                password = client.user.password,
-                name = client.name,
-                cpf = client.cpf,
-                rg = client.rg,
-                phone = client.phone,
-                address = client.address,
-                renda = client.renda
-            )
-        }
+        return clientRepository.findAll().map { toDTO(it) }
     }
 
     fun findById(id: Long): ClientDTO {
         val client = clientRepository.findById(id)
             .orElseThrow { RuntimeException(clientNotFound) }
 
-        return ClientDTO(
-            id = client.id,
-            email = client.user.email,
-            password = client.user.password,
-            name = client.name,
-            cpf = client.cpf,
-            rg = client.rg,
-            phone = client.phone,
-            address = client.address,
-            renda = client.renda
-
-        )
+        return toDTO(client)
     }
 
     fun findByUserId(userId: Long): ClientDTO {
-        val client = clientRepository.findByUserId(userId)
+        val client = clientRepository.findById(userId)
             .orElseThrow { RuntimeException("Cliente não encontrado para este usuário") }
 
-        return ClientDTO(
-            id = client.id,
-            email = client.user.email,
-            password = client.user.password,
-            name = client.name,
-            cpf = client.cpf,
-            rg = client.rg,
-            phone = client.phone,
-            address = client.address,
-            renda = client.renda
-        )
+        return toDTO(client)
     }
 
     fun update(id: Long, clientDTO: ClientDTO): ClientDTO {
@@ -135,37 +77,22 @@ class ClientService(
             throw RuntimeException("CPF já está em uso")
         }
 
-        val updatedUser = existingUser.copy(
-            email = clientDTO.email,
-            password = clientDTO.password
-        )
+        existingUser.email = clientDTO.email
+        existingUser.password = clientDTO.password
 
-        val savedUser = userRepository.update(updatedUser)
+        val savedUser = userRepository.update(existingUser)
 
-        val updatedClient = existingClient.copy(
-            name = clientDTO.name,
-            cpf = clientDTO.cpf,
-            rg = clientDTO.rg,
-            phone = clientDTO.phone,
-            address = clientDTO.address,
-            renda = clientDTO.renda,
-            user = savedUser
-        )
+        existingClient.name = clientDTO.name
+        existingClient.cpf = clientDTO.cpf
+        existingClient.rg = clientDTO.rg
+        existingClient.phone = clientDTO.phone
+        existingClient.address = clientDTO.address
+        existingClient.renda = clientDTO.renda
+        existingClient.user = savedUser
 
-        val savedClient = clientRepository.update(updatedClient)
+        val savedClient = clientRepository.update(existingClient)
 
-        return ClientDTO(
-            id = savedClient.id,
-            email = savedUser.email,
-            password = savedUser.password,
-            name = savedClient.name,
-            cpf = savedClient.cpf,
-            rg = savedClient.rg,
-            phone = savedClient.phone,
-            address = savedClient.address,
-            renda = savedClient.renda
-
-        )
+        return toDTO(savedClient)
     }
 
     fun delete(id: Long) {
@@ -173,6 +100,23 @@ class ClientService(
             .orElseThrow { RuntimeException(clientNotFound) }
 
         clientRepository.deleteById(id)
-        userRepository.deleteById(client.user.id!!)
+
+        client.user.id?.let { userId ->
+            userRepository.deleteById(userId)
+        }
+    }
+
+    private fun toDTO(client: Client): ClientDTO {
+        return ClientDTO(
+            id = client.id,
+            email = client.user.email,
+            password = client.user.password,
+            name = client.name,
+            cpf = client.cpf,
+            rg = client.rg,
+            phone = client.phone,
+            address = client.address,
+            renda = client.renda
+        )
     }
 }

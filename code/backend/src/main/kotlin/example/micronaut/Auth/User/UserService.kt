@@ -1,18 +1,3 @@
-/*
- * Copyright 2026 original authors
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package example.micronaut.autentificacao.usuario
 
 import jakarta.inject.Singleton
@@ -27,27 +12,19 @@ class UserService(
             throw RuntimeException("Email já cadastrado")
         }
 
-        val user = User(
-            email = userDTO.email,
-            password = userDTO.password
+        val savedUser = userRepository.save(
+            User(
+                email = userDTO.email,
+                password = userDTO.password
+            )
         )
 
-        val savedUser = userRepository.save(user)
-
-        return UserDTO(
-            id = savedUser.id,
-            email = savedUser.email,
-            password = savedUser.password
-        )
+        return toDTO(savedUser)
     }
 
     fun findAll(): List<UserDTO> {
         return userRepository.findAll().map { user ->
-            UserDTO(
-                id = user.id,
-                email = user.email,
-                password = user.password
-            )
+            toDTO(user)
         }
     }
 
@@ -55,35 +32,39 @@ class UserService(
         val user = userRepository.findById(id)
             .orElseThrow { RuntimeException("Usuário não encontrado") }
 
-        return UserDTO(
-            id = user.id,
-            email = user.email,
-            password = user.password
-        )
-    }
-
-    fun delete(id: Long) {
-        if (!userRepository.existsById(id)) {
-            throw RuntimeException("Usuário não encontrado")
-        }
-        userRepository.deleteById(id)
+        return toDTO(user)
     }
 
     fun update(id: Long, userDTO: UserDTO): UserDTO {
         val existingUser = userRepository.findById(id)
             .orElseThrow { RuntimeException("Usuário não encontrado") }
 
-        val updatedUser = existingUser.copy(
-            email = userDTO.email,
-            password = userDTO.password
-        )
+        val userWithEmail = userRepository.findByEmail(userDTO.email)
+        if (userWithEmail != null && userWithEmail.id != id) {
+            throw RuntimeException("Email já está em uso")
+        }
 
-        val savedUser = userRepository.update(updatedUser)
+        existingUser.email = userDTO.email
+        existingUser.password = userDTO.password
 
+        val savedUser = userRepository.update(existingUser)
+
+        return toDTO(savedUser)
+    }
+
+    fun delete(id: Long) {
+        if (!userRepository.existsById(id)) {
+            throw RuntimeException("Usuário não encontrado")
+        }
+
+        userRepository.deleteById(id)
+    }
+
+    private fun toDTO(user: User): UserDTO {
         return UserDTO(
-            id = savedUser.id,
-            email = savedUser.email,
-            password = savedUser.password
+            id = user.id,
+            email = user.email,
+            password = user.password
         )
     }
 }
