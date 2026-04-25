@@ -4,14 +4,25 @@ import { useState } from "react";
 export default function Cadastro() {
   const navigate = useNavigate();
 
+  const [tipoCadastro, setTipoCadastro] = useState("cliente");
+
+  // Cliente
   const [name, setName] = useState("");
   const [cpf, setCpf] = useState("");
   const [rg, setRg] = useState("");
   const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+
+  // Agente
+  const [cnpj, setCnpj] = useState("");
+  const [razaoSocial, setRazaoSocial] = useState("");
+  const [tipoAgente, setTipoAgente] = useState("EMPRESA");
+
+  // Login comum
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmarSenha, setConfirmarSenha] = useState("");
-  const [address, setAddress] = useState("");
+
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -26,20 +37,36 @@ export default function Cadastro() {
     }
 
     try {
-      const response = await fetch("/api/clients/register", {
+      const endpoint =
+        tipoCadastro === "cliente"
+          ? "/api/clients/register"
+          : "/api/agents";
+
+      const body =
+            tipoCadastro === "cliente"
+        ? {
+            name,
+            cpf,
+            rg,
+            phone,
+            email,
+            password,
+            address,
+          }
+        : {
+            email,
+            password,
+            cnpj,
+            razaoSocial,
+            tipo: tipoAgente,
+          };
+
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          name,
-          cpf,
-          rg,
-          phone,
-          email,
-          password,
-          address
-        })
+        body: JSON.stringify(body),
       });
 
       const data = await response.json();
@@ -53,7 +80,6 @@ export default function Cadastro() {
       setTimeout(() => {
         navigate("/login");
       }, 1500);
-
     } catch (err) {
       setError(err.message);
     }
@@ -62,8 +88,10 @@ export default function Cadastro() {
   return (
     <div className="container d-flex align-items-center justify-content-center main-content">
       <div className="col-12 col-sm-8 col-md-6 col-lg-4">
-        <form onSubmit={handleCadastro} className="card p-4 shadow-sm text-center position-relative pt-5">
-
+        <form
+          onSubmit={handleCadastro}
+          className="card p-4 shadow-sm text-center position-relative pt-5"
+        >
           <img
             src="/driveflix-icon.png"
             alt="Profile"
@@ -71,55 +99,142 @@ export default function Cadastro() {
             style={{ width: "100px", height: "100px" }}
           />
 
-          <h4 className="cor_roxa mb-3">Cadastro de Cliente</h4>
+          <h4 className="cor_roxa mb-3">
+            {tipoCadastro === "cliente"
+              ? "Cadastro de Cliente"
+              : "Cadastro de Agente"}
+          </h4>
 
-          <div className="form-floating mb-2">
-            <input
-              type="text"
-              className="form-control"
-              id="nome"
-              placeholder="Nome completo"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <label htmlFor="nome">Nome completo</label>
+          <div className="d-flex gap-2 mb-3">
+            <button
+              type="button"
+              className={`btn w-50 ${
+                tipoCadastro === "cliente"
+                  ? "cor_roxa_bg text-white"
+                  : "btn-outline-secondary"
+              }`}
+              onClick={() => setTipoCadastro("cliente")}
+            >
+              Cliente
+            </button>
+
+            <button
+              type="button"
+              className={`btn w-50 ${
+                tipoCadastro === "agente"
+                  ? "cor_roxa_bg text-white"
+                  : "btn-outline-secondary"
+              }`}
+              onClick={() => setTipoCadastro("agente")}
+            >
+              Agente
+            </button>
           </div>
 
-          <div className="form-floating mb-2">
-            <input
-              type="text"
-              className="form-control"
-              id="cpf"
-              placeholder="CPF"
-              value={cpf}
-              onChange={(e) => setCpf(e.target.value)}
-            />
-            <label htmlFor="cpf">CPF</label>
-          </div>
+          {tipoCadastro === "cliente" && (
+            <>
+              <div className="form-floating mb-2">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="nome"
+                  placeholder="Nome completo"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+                <label htmlFor="nome">Nome completo</label>
+              </div>
 
-          <div className="form-floating mb-2">
-            <input
-              type="text"
-              className="form-control"
-              id="rg"
-              placeholder="RG"
-              value={rg}
-              onChange={(e) => setRg(e.target.value)}
-            />
-            <label htmlFor="rg">RG</label>
-          </div>
+              <div className="form-floating mb-2">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="cpf"
+                  placeholder="CPF"
+                  value={cpf}
+                  onChange={(e) => setCpf(e.target.value)}
+                />
+                <label htmlFor="cpf">CPF</label>
+              </div>
 
-          <div className="form-floating mb-2">
-            <input
-              type="tel"
-              className="form-control"
-              id="telefone"
-              placeholder="Telefone"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-            />
-            <label htmlFor="telefone">Telefone</label>
-          </div>
+              <div className="form-floating mb-2">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="rg"
+                  placeholder="RG"
+                  value={rg}
+                  onChange={(e) => setRg(e.target.value)}
+                />
+                <label htmlFor="rg">RG</label>
+              </div>
+
+              <div className="form-floating mb-2">
+                <input
+                  type="tel"
+                  className="form-control"
+                  id="telefone"
+                  placeholder="Telefone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+                <label htmlFor="telefone">Telefone</label>
+              </div>
+
+              <div className="form-floating mb-2">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="address"
+                  placeholder="Endereço"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                />
+                <label htmlFor="address">Endereço</label>
+              </div>
+            </>
+          )}
+
+          {tipoCadastro === "agente" && (
+            <>
+              <div className="form-floating mb-2">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="cnpj"
+                  placeholder="CNPJ"
+                  value={cnpj}
+                  onChange={(e) => setCnpj(e.target.value)}
+                />
+                <label htmlFor="cnpj">CNPJ</label>
+              </div>
+
+              <div className="form-floating mb-2">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="razaoSocial"
+                  placeholder="Razão Social"
+                  value={razaoSocial}
+                  onChange={(e) => setRazaoSocial(e.target.value)}
+                />
+                <label htmlFor="razaoSocial">Razão Social</label>
+              </div>
+
+              <div className="form-floating mb-2">
+                <select
+                  className="form-select"
+                  id="tipoAgente"
+                  value={tipoAgente}
+                  onChange={(e) => setTipoAgente(e.target.value)}
+                >
+                  <option value="EMPRESA">Empresa</option>
+                  <option value="BANCO">Banco</option>
+                </select>
+                <label htmlFor="tipoAgente">Tipo de agente</label>
+              </div>
+            </>
+          )}
 
           <div className="form-floating mb-2">
             <input
@@ -131,18 +246,6 @@ export default function Cadastro() {
               onChange={(e) => setEmail(e.target.value)}
             />
             <label htmlFor="email">Email</label>
-          </div>
-
-          <div className="form-floating mb-2">
-            <input
-              type="text"
-              className="form-control"
-              id="address"
-              placeholder="Endereço"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-            />
-            <label htmlFor="address">Endereço</label>
           </div>
 
           <div className="form-floating mb-2">
@@ -181,7 +284,6 @@ export default function Cadastro() {
               Já tem conta? Entrar
             </NavLink>
           </p>
-
         </form>
       </div>
     </div>

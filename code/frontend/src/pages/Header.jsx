@@ -5,11 +5,16 @@ import { HiOutlineLogin, HiUserAdd } from "react-icons/hi";
 
 export default function Header() {
   const navigate = useNavigate();
+
   const isLogged = !!localStorage.getItem("userId");
+  const accessType = localStorage.getItem("accessType");
+  const isAgente = accessType === "AGENTE";
 
   function handleLogout() {
     localStorage.removeItem("userId");
     localStorage.removeItem("clientId");
+    localStorage.removeItem("agentId");
+    localStorage.removeItem("accessType");
     navigate("/");
   }
 
@@ -28,19 +33,54 @@ export default function Header() {
           </NavLink>
         </li>
 
-        <li className="nav-item">
-          <NavLink to="/catalogo" className="nav-link cor_roxa">
-            <IoCarSportSharp /> Catálogo
-          </NavLink>
-        </li>
+        {isLogged && isAgente ? (
+          <>
+            <li className="nav-item">
+              <NavLink to="/" className="nav-link cor_roxa">
+                Home
+              </NavLink>
+            </li>
 
-        <li className="nav-item">
-          <NavLink to="/MeusPedidos" className="nav-link cor_roxa">
-            <GiCarKey /> Pedidos
-          </NavLink>
-        </li>
+            <li className="nav-item">
+              <NavLink to="/catalogo" className="nav-link cor_roxa">
+                <IoCarSportSharp /> Catálogo
+              </NavLink>
+            </li>
 
-        {/* Espaço à direita */}
+            <li className="nav-item">
+              <NavLink to="/carros" className="nav-link cor_roxa">
+                <IoCarSportSharp /> Carros
+              </NavLink>
+            </li>
+
+            <li className="nav-item">
+              <NavLink to="/alugueis" className="nav-link cor_roxa">
+                <GiCarKey /> Aluguéis
+              </NavLink>
+            </li>
+
+            <li className="nav-item">
+              <NavLink to="/gerenciar-pedidos" className="nav-link cor_roxa">
+                <GiCarKey /> Gerenciar Pedidos
+              </NavLink>
+            </li>
+          </>
+        ) : (
+          <>
+            <li className="nav-item">
+              <NavLink to="/catalogo" className="nav-link cor_roxa">
+                <IoCarSportSharp /> Catálogo
+              </NavLink>
+            </li>
+
+            <li className="nav-item">
+              <NavLink to="/MeusPedidos" className="nav-link cor_roxa">
+                <GiCarKey /> Pedidos
+              </NavLink>
+            </li>
+          </>
+        )}
+
         <li className="nav-item ms-auto"></li>
 
         {!isLogged ? (
@@ -59,11 +99,13 @@ export default function Header() {
           </>
         ) : (
           <>
-            <li className="nav-item">
-              <NavLink to="/perfil" className="nav-link cor_roxa">
-                <GiFullMotorcycleHelmet /> Perfil
-              </NavLink>
-            </li>
+            {!isAgente && (
+              <li className="nav-item">
+                <NavLink to="/perfil" className="nav-link cor_roxa">
+                  <GiFullMotorcycleHelmet /> Perfil
+                </NavLink>
+              </li>
+            )}
 
             <li className="nav-item">
               <button

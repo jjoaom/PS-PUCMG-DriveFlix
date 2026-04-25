@@ -9,10 +9,13 @@ class AgenteController(
 ) {
 
     @Post
-    fun criar(@Body dto: AgenteDTO): HttpResponse<Agente> {
-        return HttpResponse.created(agenteService.criar(dto))
+    fun criar(@Body dto: AgenteDTO): HttpResponse<Any> {
+        return try {
+            HttpResponse.created(agenteService.criar(dto))
+        } catch (e: RuntimeException) {
+            HttpResponse.badRequest(mapOf("message" to e.message))
+        }
     }
-
     @Get
     fun listar(): HttpResponse<List<Agente>> {
         return HttpResponse.ok(agenteService.listar())

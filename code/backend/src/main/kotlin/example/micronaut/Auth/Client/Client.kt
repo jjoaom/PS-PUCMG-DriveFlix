@@ -1,8 +1,12 @@
 package example.micronaut.autentificacao.cliente
 
+import io.micronaut.serde.annotation.Serdeable
+import io.micronaut.core.annotation.Introspected
 import example.micronaut.autentificacao.usuario.User
 import jakarta.persistence.*
 
+@Serdeable
+@Introspected
 @Entity
 @Table(name = "clients")
 data class Client(

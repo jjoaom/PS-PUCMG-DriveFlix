@@ -2,45 +2,45 @@ package example.micronaut.autentificacao.cliente
 
 import example.micronaut.autentificacao.usuario.User
 import example.micronaut.autentificacao.usuario.UserRepository
+import jakarta.transaction.Transactional
 import jakarta.inject.Singleton
 
 @Singleton
-class ClientService(
+open class ClientService(
     private val clientRepository: ClientRepository,
     private val userRepository: UserRepository
 ) {
 
     private val clientNotFound = "Cliente não encontrado"
 
-    fun register(clientDTO: ClientDTO): ClientDTO {
-        if (userRepository.existsByEmail(clientDTO.email)) {
+    @Transactional
+    open fun register(dto: ClientDTO): Client {
+        if (userRepository.existsByEmail(dto.email)) {
             throw RuntimeException("Email já cadastrado")
         }
 
-        if (clientRepository.existsByCpf(clientDTO.cpf)) {
+        if (clientRepository.existsByCpf(dto.cpf)) {
             throw RuntimeException("CPF já cadastrado")
         }
 
-        val savedUser = userRepository.save(
+        val userSalvo = userRepository.save(
             User(
-                email = clientDTO.email,
-                password = clientDTO.password
+                email = dto.email,
+                password = dto.password
             )
         )
 
-        val savedClient = clientRepository.save(
-            Client(
-                name = clientDTO.name,
-                cpf = clientDTO.cpf,
-                rg = clientDTO.rg,
-                phone = clientDTO.phone,
-                address = clientDTO.address,
-                renda = clientDTO.renda,
-                user = savedUser
-            )
+        val client = Client(
+            id = userSalvo.id,
+            name = dto.name,
+            cpf = dto.cpf,
+            rg = dto.rg,
+            phone = dto.phone,
+            address = dto.address,
+            user = userSalvo
         )
 
-        return toDTO(savedClient)
+        return clientRepository.save(client)
     }
 
     fun findAll(): List<ClientDTO> {

@@ -25,9 +25,16 @@ class ClientController(
 ) {
 
     @Post("/register")
-    fun register(@Body clientDTO: ClientDTO): HttpResponse<Any> {
+    fun register(@Body dto: ClientDTO): HttpResponse<Any> {
         return try {
-            HttpResponse.created(clientService.register(clientDTO))
+            val client = clientService.register(dto)
+
+            HttpResponse.created(
+                mapOf(
+                    "message" to "Cliente cadastrado com sucesso",
+                    "clientId" to client.id
+                )
+            )
         } catch (e: RuntimeException) {
             HttpResponse.badRequest(mapOf("message" to e.message))
         }

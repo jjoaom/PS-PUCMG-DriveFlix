@@ -1,8 +1,9 @@
 package example.micronaut.autentificacao.usuario
-
+import io.micronaut.serde.annotation.Serdeable
 import jakarta.persistence.*
 
 @Entity
+@Serdeable
 @Table(name = "users")
 open class User(
 
