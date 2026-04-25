@@ -47,7 +47,6 @@ export default function CarrosAgente() {
       });
   }, []);
 
-  // 🔎 filtro
   const carrosFiltrados = carros.filter((carro) => {
     const texto = busca.toLowerCase();
 
@@ -62,14 +61,11 @@ export default function CarrosAgente() {
     return matchBusca && matchDisponivel;
   });
 
-  // 🔥 ordenação
   const carrosOrdenados = [...carrosFiltrados].sort((a, b) => {
     if (ordem === "maior") return b.preco - a.preco;
     if (ordem === "menor") return a.preco - b.preco;
-
     if (ordem === "recentes") return b.id - a.id;
     if (ordem === "antigos") return a.id - b.id;
-
     return 0;
   });
 
@@ -77,62 +73,104 @@ export default function CarrosAgente() {
     <>
       <Scene />
 
-      <div className="container-fluid px-4 py-4">
-        <div className="d-flex justify-content-between align-items-center mb-4 gap-3 flex-wrap">
-          
-          <h2 className="text-black">Meus Carros</h2>
+      <div
+        className="container-fluid px-4 py-4"
+        style={{
+          backgroundColor: "#0b0f1a",
+          minHeight: "100vh",
+        }}
+      >
+        {/* HEADER */}
+        <div className="d-flex align-items-center mb-4 flex-wrap">
 
-          <button
-            className="btn btn-primary"
-            onClick={() => navigate("/cadastro-carro")}
-          >
-            Cadastrar carro
-          </button>
+          {/* ESQUERDA */}
+          <h2 className="text-white m-0 me-auto">Meus Carros</h2>
 
-          <div className="form-check text-black">
+          {/* CENTRO */}
+          <div className="mx-auto" style={{ width: "400px" }}>
             <input
-              className="form-check-input"
-              type="checkbox"
-              id="disponiveisCheck"
-              checked={somenteDisponiveis}
-              onChange={(e) => setSomenteDisponiveis(e.target.checked)}
+              type="text"
+              className="form-control text-center"
+              placeholder="Buscar por marca ou modelo..."
+              value={busca}
+              onChange={(e) => setBusca(e.target.value)}
+              style={{
+                height: "45px",
+                backgroundColor: "#111827",
+                color: "#fff",
+                border: "1px solid #374151",
+              }}
             />
-            <label className="form-check-label" htmlFor="disponiveisCheck">
-              Apenas disponíveis
-            </label>
           </div>
 
-          <input
-            type="text"
-            className="form-control w-50"
-            placeholder="Buscar por marca ou modelo..."
-            value={busca}
-            onChange={(e) => setBusca(e.target.value)}
-          />
+          {/* DIREITA */}
+          <div className="d-flex align-items-center gap-3 ms-auto">
 
-          <select
-            className="form-select w-auto"
-            value={ordem}
-            onChange={(e) => setOrdem(e.target.value)}
-          >
-            <option value="">Ordenar</option>
-            <option value="recentes">Mais recentes</option>
-            <option value="antigos">Mais antigos</option>
-            <option value="menor">Menor preço</option>
-            <option value="maior">Maior preço</option>
-          </select>
+            <button
+              className="btn"
+              onClick={() => navigate("/cadastro-carro")}
+              style={{
+                backgroundColor: "#60a5fa",
+                color: "#000",
+                fontWeight: "bold",
+              }}
+            >
+              Cadastrar carro
+            </button>
 
+            <div className="form-check m-0">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="disponiveisCheck"
+                checked={somenteDisponiveis}
+                onChange={(e) => setSomenteDisponiveis(e.target.checked)}
+                style={{
+                  backgroundColor: "#111827",
+                  borderColor: "#374151",
+                }}
+              />
+              <label
+                className="form-check-label text-white"
+                htmlFor="disponiveisCheck"
+              >
+                Apenas disponíveis
+              </label>
+            </div>
+
+            <select
+              className="form-select"
+              value={ordem}
+              onChange={(e) => setOrdem(e.target.value)}
+              style={{
+                width: "160px",
+                height: "45px",
+                backgroundColor: "#111827",
+                color: "#fff",
+                border: "1px solid #374151",
+              }}
+            >
+              <option value="">Ordenar</option>
+              <option value="recentes">Mais recentes</option>
+              <option value="antigos">Mais antigos</option>
+              <option value="menor">Menor preço</option>
+              <option value="maior">Maior preço</option>
+            </select>
+
+          </div>
         </div>
 
-        {loading && <p className="text-black">Carregando...</p>}
+        {/* ESTADOS */}
+        {loading && <p className="text-white">Carregando...</p>}
         {erro && <p className="text-danger">{erro}</p>}
 
         {!loading && !erro && carrosOrdenados.length === 0 && (
-          <p className="text-black">
+          <p className="text-white">
             Você ainda não cadastrou nenhum carro.
           </p>
         )}
 
+        {/* GRID */}
         {!loading && !erro && carrosOrdenados.length > 0 && (
           <div className="row g-4">
             {carrosOrdenados.map((carro) => (

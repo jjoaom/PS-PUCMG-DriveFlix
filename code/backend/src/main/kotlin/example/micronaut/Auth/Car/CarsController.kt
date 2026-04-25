@@ -43,7 +43,7 @@ class CarController(
         val extensao = imagem.filename.substringAfterLast(".", "jpg")
         val nomeArquivo = "${UUID.randomUUID()}.$extensao"
 
-        val pastaUploads = Paths.get("/tmp/uploads")
+        val pastaUploads = Paths.get("/app/uploads")
         Files.createDirectories(pastaUploads)
 
         val caminhoArquivo = pastaUploads.resolve(nomeArquivo)

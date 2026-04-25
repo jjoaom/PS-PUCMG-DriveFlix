@@ -42,4 +42,18 @@ class PedidoService(
             )
         }
     }
+
+    fun buscarPorAgente(agentId: Long): List<PedidoAgenteDTO> {
+        val resultados = pedidoRepository.findPedidosComCarro(agentId)
+
+        return resultados.map { linha ->
+            PedidoAgenteDTO(
+                id = linha[0] as Long,
+                status = linha[1] as String?,
+                dataCriacao = linha[2] as java.time.LocalDateTime,
+                placa = linha[3] as String?,
+                imagemUrl = linha[4] as String?
+            )
+        }
+    }
 }

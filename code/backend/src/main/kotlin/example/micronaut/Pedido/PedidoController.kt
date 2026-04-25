@@ -23,4 +23,9 @@ class PedidoController(
     fun listarPorCliente(clientId: Long): List<FiltarPedidoDTO> {
         return pedidoService.listarPorCliente(clientId)
     }
+
+    @Get("/agente/{agentId}")
+    fun listarPorAgente(agentId: Long): List<PedidoAgenteDTO> {
+        return pedidoService.buscarPorAgente(agentId)
+    }
 }

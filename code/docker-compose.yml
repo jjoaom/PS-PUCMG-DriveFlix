@@ -26,24 +26,33 @@ services:
       retries: 5
 
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    container_name: micronaut_app
-    depends_on:
-      db:
-        condition: service_healthy
-    environment:
-      DATASOURCES_DEFAULT_URL: jdbc:postgresql://db:5432/appdb
-      DATASOURCES_DEFAULT_USERNAME: avnadmin
-      DATASOURCES_DEFAULT_PASSWORD: AVNS_9lSBDz3jXFQYFgz9yrE
-      DATASOURCES_DEFAULT_DRIVER_CLASS_NAME: org.postgresql.Driver
-      DATASOURCES_DEFAULT_DIALECT: POSTGRES
-    ports:
-      - "8080:8080"
-    networks:
-      - backend
-    restart: unless-stopped
+      build:
+        context: ./backend
+        dockerfile: Dockerfile
+
+      volumes:
+        - ./uploads:/app/uploads
+
+      container_name: micronaut_app
+
+      depends_on:
+        db:
+          condition: service_healthy
+
+      environment:
+        DATASOURCES_DEFAULT_URL: jdbc:postgresql://db:5432/appdb
+        DATASOURCES_DEFAULT_USERNAME: avnadmin
+        DATASOURCES_DEFAULT_PASSWORD: AVNS_9lSBDz3jXFQYFgz9yrE
+        DATASOURCES_DEFAULT_DRIVER_CLASS_NAME: org.postgresql.Driver
+        DATASOURCES_DEFAULT_DIALECT: POSTGRES
+
+      ports:
+        - "8080:8080"
+
+      networks:
+        - backend
+
+      restart: unless-stopped
 
   frontend:
       build:

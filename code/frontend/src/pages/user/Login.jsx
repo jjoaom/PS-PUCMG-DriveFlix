@@ -67,31 +67,66 @@ export default function Login() {
     }
   }
 
+  const inputStyle = {
+    backgroundColor: "#111827",
+    color: "#fff",
+    border: "1px solid #374151",
+  };
+
+  const labelStyle = {
+    color: "#9ca3af",
+  };
+
   return (
-    <div className="container d-flex align-items-center justify-content-center main-content">
-      <div className="col-12 col-sm-8 col-md-6 col-lg-4">
+    <div
+      className="d-flex align-items-center justify-content-center"
+      style={{
+        minHeight: "100vh",
+        backgroundColor: "#0b0f1a",
+        padding: "40px 16px",
+      }}
+    >
+      <div className="col-12 col-sm-8 col-md-6 col-lg-4" style={{ maxWidth: "400px" }}>
         <form
           onSubmit={handleLogin}
-          className="card p-4 shadow-sm text-center position-relative pt-5"
+          className="card p-4 text-center position-relative pt-5"
+          style={{
+            backgroundColor: "#111827",
+            color: "#fff",
+            border: "1px solid #7c3aed",
+            borderRadius: "18px",
+            boxShadow:
+              "0 0 18px rgba(124, 58, 237, 0.8), 0 0 40px rgba(96, 165, 250, 0.25)",
+          }}
         >
           <img
             src="/driveflix-icon.png"
             alt="Profile"
             className="rounded-circle position-absolute top-0 start-50 translate-middle object-fit-cover"
-            style={{ width: "100px", height: "100px" }}
+            style={{
+              width: "85px",
+              height: "85px",
+            }}
           />
+
+          <h4 className="mb-3" style={{ color: "#a855f7" }}>
+            Login
+          </h4>
 
           <div className="form-floating mb-3">
             <input
               type="email"
               className="form-control"
               id="floatingInput"
-              placeholder="name@example.com"
+              placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              style={inputStyle}
             />
-            <label htmlFor="floatingInput">Endereço de Email</label>
+            <label htmlFor="floatingInput" style={labelStyle}>
+              Endereço de Email
+            </label>
           </div>
 
           <div className="form-floating mb-3">
@@ -99,12 +134,15 @@ export default function Login() {
               type="password"
               className="form-control"
               id="floatingPassword"
-              placeholder="Password"
+              placeholder="Senha"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              style={inputStyle}
             />
-            <label htmlFor="floatingPassword">Senha</label>
+            <label htmlFor="floatingPassword" style={labelStyle}>
+              Senha
+            </label>
           </div>
 
           <div className="mb-3">
@@ -113,6 +151,7 @@ export default function Login() {
               value={accessType}
               onChange={(e) => setAccessType(e.target.value)}
               required
+              style={inputStyle}
             >
               <option value="">Selecione seu acesso</option>
               <option value="CLIENTE">Cliente</option>
@@ -125,18 +164,35 @@ export default function Login() {
           <p>
             <NavLink
               to="/forgot-my-password"
-              className="link-body-emphasis cor_roxa_text"
+              style={{ color: "#60a5fa" }}
             >
               Esqueci minha senha
             </NavLink>
           </p>
 
-          <button type="submit" className="btn cor_roxa_bg text-white w-100 mb-2">
-            <strong>Entrar</strong>
+          <button
+            type="submit"
+            className="btn w-100 mb-2"
+            style={{
+              backgroundColor: "#7c3aed",
+              color: "#fff",
+              fontWeight: "bold",
+              boxShadow: "0 0 12px rgba(124, 58, 237, 0.8)",
+            }}
+          >
+            Entrar
           </button>
 
-          <NavLink to="/cadastro" className="btn cor_roxa_bg text-white w-100">
-            <strong>Registre-se</strong>
+          <NavLink
+            to="/cadastro"
+            className="btn w-100"
+            style={{
+              backgroundColor: "#1f2937",
+              color: "#fff",
+              border: "1px solid #7c3aed",
+            }}
+          >
+            Registre-se
           </NavLink>
         </form>
       </div>

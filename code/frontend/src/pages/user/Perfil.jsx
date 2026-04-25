@@ -15,7 +15,6 @@ export default function Perfil() {
 
   function formatarMoeda(valor) {
     if (!valor) return "";
-
     const numero = Number(valor) / 100;
 
     return numero.toLocaleString("pt-BR", {
@@ -39,13 +38,14 @@ export default function Perfil() {
         throw new Error("clientId não encontrado no localStorage.");
       }
 
-      const response = await fetch(`http://localhost:8080/api/clients/${clientId}`);
+      const response = await fetch(`/api/clients/${clientId}`);
 
       if (!response.ok) {
         throw new Error(`Erro ao buscar cliente: ${response.status}`);
       }
 
       const data = await response.json();
+
       setCliente(data);
       setRenda(data.renda != null ? String(Math.round(data.renda * 100)) : "");
     } catch (err) {
@@ -66,7 +66,7 @@ export default function Perfil() {
 
       const rendaNumerica = renda === "" ? null : Number(renda) / 100;
 
-      const response = await fetch(`http://localhost:8080/api/clients/${cliente.id}`, {
+      const response = await fetch(`/api/clients/${cliente.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -99,45 +99,88 @@ export default function Perfil() {
     setEditandoRenda(false);
   }
 
+  const inputStyle = {
+    backgroundColor: "#111827",
+    color: "#fff",
+    border: "1px solid #374151",
+    boxShadow: "none",
+  };
+
   if (loading) {
-    return <div className="container py-5">Carregando perfil...</div>;
+    return (
+      <div
+        className="d-flex align-items-center justify-content-center"
+        style={{
+          minHeight: "100vh",
+          backgroundColor: "#0b0f1a",
+          color: "#fff",
+        }}
+      >
+        Carregando perfil...
+      </div>
+    );
   }
 
   return (
-    <div className="d-flex justify-content-center py-5">
-      <div style={{ width: "100%", maxWidth: "600px" }}>
-        <div className="d-flex justify-content-between align-items-center mb-4">
-          <h1 className="cor_roxa">Perfil do Cliente</h1>
-        </div>
+    <div
+      className="d-flex justify-content-center py-5"
+      style={{
+        minHeight: "100vh",
+        backgroundColor: "#0b0f1a",
+        color: "#fff",
+        paddingInline: "16px",
+      }}
+    >
+      <div style={{ width: "100%", maxWidth: "520px" }}>
+        <h1
+          className="text-center mb-4"
+          style={{
+            color: "#a855f7",
+            textShadow: "0 0 14px rgba(168, 85, 247, 0.65)",
+          }}
+        >
+          Perfil do Cliente
+        </h1>
 
         {erro && <div className="alert alert-danger">{erro}</div>}
 
         {cliente && (
-          <div className="card p-4 shadow-sm">
-            <div className="mb-3">
-              <strong>Nome:</strong> {cliente.name}
+          <div
+            className="card p-4"
+            style={{
+              backgroundColor: "#111827",
+              color: "#fff",
+              border: "1px solid #7c3aed",
+              borderRadius: "18px",
+              boxShadow:
+                "0 0 18px rgba(124, 58, 237, 0.75), 0 0 38px rgba(96, 165, 250, 0.25)",
+            }}
+          >
+            <div className="mb-3" style={{ color: "#d1d5db" }}>
+              <strong className="text-white">Nome:</strong> {cliente.name}
             </div>
 
-            <div className="mb-3">
-              <strong>CPF:</strong> {cliente.cpf}
+            <div className="mb-3" style={{ color: "#d1d5db" }}>
+              <strong className="text-white">CPF:</strong> {cliente.cpf}
             </div>
 
-            <div className="mb-3">
-              <strong>RG:</strong> {cliente.rg}
+            <div className="mb-3" style={{ color: "#d1d5db" }}>
+              <strong className="text-white">RG:</strong> {cliente.rg}
             </div>
 
-            <div className="mb-3">
-              <strong>Telefone:</strong> {cliente.phone}
+            <div className="mb-3" style={{ color: "#d1d5db" }}>
+              <strong className="text-white">Telefone:</strong> {cliente.phone}
             </div>
 
-            <div className="mb-3">
-              <strong>Endereço:</strong> {cliente.address}
+            <div className="mb-3" style={{ color: "#d1d5db" }}>
+              <strong className="text-white">Endereço:</strong> {cliente.address}
             </div>
 
             <div className="mb-3">
               <label className="form-label">
                 <strong>Renda:</strong>
               </label>
+
               <input
                 type="text"
                 className="form-control"
@@ -147,30 +190,50 @@ export default function Perfil() {
                   const valorLimpo = apenasNumeros(e.target.value);
                   setRenda(valorLimpo);
                 }}
+                style={{
+                  ...inputStyle,
+                  opacity: editandoRenda ? 1 : 0.75,
+                }}
               />
             </div>
 
             {!editandoRenda ? (
               <button
-                className="btn btn-primary"
+                className="btn w-100"
                 onClick={() => setEditandoRenda(true)}
+                style={{
+                  backgroundColor: "#7c3aed",
+                  color: "#fff",
+                  fontWeight: "bold",
+                  boxShadow: "0 0 12px rgba(124, 58, 237, 0.8)",
+                }}
               >
                 Editar renda
               </button>
             ) : (
               <div className="d-flex gap-2">
                 <button
-                  className="btn btn-success"
+                  className="btn w-50"
                   onClick={salvarRenda}
                   disabled={salvando}
+                  style={{
+                    backgroundColor: "#22c55e",
+                    color: "#fff",
+                    fontWeight: "bold",
+                  }}
                 >
                   {salvando ? "Salvando..." : "Salvar"}
                 </button>
 
                 <button
-                  className="btn btn-secondary"
+                  className="btn w-50"
                   onClick={cancelarEdicao}
                   disabled={salvando}
+                  style={{
+                    backgroundColor: "#1f2937",
+                    color: "#fff",
+                    border: "1px solid #374151",
+                  }}
                 >
                   Cancelar
                 </button>
@@ -178,36 +241,51 @@ export default function Perfil() {
             )}
           </div>
         )}
-      </div>
 
-      {modalSucesso && (
-        <div
-          className="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
-          style={{
-            background: "rgba(0, 0, 0, 0.6)",
-            zIndex: 9999,
-          }}
-        >
+        {modalSucesso && (
           <div
-            className="card shadow-lg border-0 text-center p-4"
+            className="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
             style={{
-              width: "100%",
-              maxWidth: "400px",
-              borderRadius: "18px",
+              background: "rgba(0, 0, 0, 0.75)",
+              zIndex: 9999,
             }}
           >
-            <h4 className="text-success mb-3">Renda atualizada!</h4>
-            <p className="mb-4">Sua renda foi salva com sucesso.</p>
-
-            <button
-              className="btn btn-primary"
-              onClick={() => setModalSucesso(false)}
+            <div
+              className="card text-center p-4"
+              style={{
+                width: "100%",
+                maxWidth: "380px",
+                backgroundColor: "#111827",
+                color: "#fff",
+                border: "1px solid #22c55e",
+                borderRadius: "18px",
+                boxShadow:
+                  "0 0 18px rgba(34, 197, 94, 0.75), 0 0 38px rgba(34, 197, 94, 0.25)",
+              }}
             >
-              OK
-            </button>
+              <h4 className="mb-3" style={{ color: "#22c55e" }}>
+                Renda atualizada!
+              </h4>
+
+              <p className="mb-4 text-secondary">
+                Sua renda foi salva com sucesso.
+              </p>
+
+              <button
+                className="btn"
+                onClick={() => setModalSucesso(false)}
+                style={{
+                  backgroundColor: "#22c55e",
+                  color: "#fff",
+                  fontWeight: "bold",
+                }}
+              >
+                OK
+              </button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

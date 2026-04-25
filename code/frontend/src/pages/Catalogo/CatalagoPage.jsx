@@ -59,44 +59,86 @@ export default function Catalogo() {
     <>
       <Scene />
 
-      <div className="container-fluid px-4 py-4">
-        <div className="d-flex justify-content-between align-items-center mb-4 gap-3 flex-wrap">
-          <h2 className="text-white">Carros</h2>
-          <div className="form-check text-black">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              id="disponiveisCheck"
-              checked={somenteDisponiveis}
-              onChange={(e) => setSomenteDisponiveis(e.target.checked)}
-            />
-            <label className="form-check-label" htmlFor="disponiveisCheck">
-              Apenas disponíveis
-            </label>
-          </div>
-          
-          <input
-            type="text"
-            className="form-control w-50"
-            placeholder="Buscar por marca ou modelo..."
-            value={busca}
-            onChange={(e) => setBusca(e.target.value)}
-          />
+      <div
+        className="container-fluid px-4 py-4"
+        style={{
+          backgroundColor: "#0b0f1a",
+          minHeight: "100vh",
+        }}
+      >
+        {/* HEADER */}
+        <div className="d-flex align-items-center mb-4 flex-wrap">
 
-          <select
-            className="form-select w-auto"
-            value={ordem}
-            onChange={(e) => setOrdem(e.target.value)}
-          >
-            <option value="">Ordenar</option>
-            <option value="menor">Menor preço</option>
-            <option value="maior">Maior preço</option>
-          </select>
+          {/* ESQUERDA */}
+          <h2 className="text-white m-0 me-auto">Carros</h2>
+
+          {/* CENTRO */}
+          <div className="mx-auto" style={{ width: "400px" }}>
+            <input
+              type="text"
+              className="form-control text-center"
+              placeholder="Buscar por marca ou modelo..."
+              value={busca}
+              onChange={(e) => setBusca(e.target.value)}
+              style={{
+                height: "45px",
+                backgroundColor: "#111827",
+                color: "#fff",
+                border: "1px solid #374151",
+              }}
+            />
+          </div>
+
+          {/* DIREITA */}
+          <div className="d-flex align-items-center gap-3 ms-auto">
+
+            {/* CHECKBOX */}
+            <div className="form-check m-0">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="disponiveisCheck"
+                checked={somenteDisponiveis}
+                onChange={(e) => setSomenteDisponiveis(e.target.checked)}
+                style={{
+                  backgroundColor: "#111827",
+                  borderColor: "#374151",
+                }}
+              />
+              <label
+                className="form-check-label text-white"
+                htmlFor="disponiveisCheck"
+              >
+                Apenas disponíveis
+              </label>
+            </div>
+
+            {/* SELECT */}
+            <select
+              className="form-select"
+              value={ordem}
+              onChange={(e) => setOrdem(e.target.value)}
+              style={{
+                width: "150px",
+                height: "45px",
+                backgroundColor: "#111827",
+                color: "#fff",
+                border: "1px solid #374151",
+              }}
+            >
+              <option value="">Ordenar</option>
+              <option value="menor">Menor preço</option>
+              <option value="maior">Maior preço</option>
+            </select>
+
+          </div>
         </div>
 
+        {/* ESTADOS */}
         {loading && <p className="text-white">Carregando...</p>}
         {erro && <p className="text-danger">{erro}</p>}
 
+        {/* GRID */}
         {!loading && !erro && (
           <div className="row g-4">
             {carrosOrdenados.map((carro) => (
