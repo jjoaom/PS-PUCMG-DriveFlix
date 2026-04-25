@@ -3,6 +3,11 @@ import Scene from "./Scene";
 
 export default function Home() {
   const navigate = useNavigate();
+  const isLogged = !!localStorage.getItem("userId");
+  const accessType = localStorage.getItem("accessType");
+  const handleClick = () => {
+    navigate(isLogged ? "/MeusPedidos" : "/Login");
+  };
 
   return (
     <>
@@ -75,7 +80,7 @@ export default function Home() {
                     border: "1px solid rgba(255,255,255,0.35)",
                     background: "rgba(255,255,255,0.06)",
                   }}
-                  onClick={() => navigate("/MeusPedidos")}
+                  onClick={handleClick}
                 >
                   Meus aluguéis
                 </button>

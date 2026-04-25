@@ -1,5 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { IMaskInput } from "react-imask";
 
 export default function Cadastro() {
   const navigate = useNavigate();
@@ -152,17 +153,50 @@ export default function Cadastro() {
               </div>
 
               <div className="form-floating mb-2">
-                <input type="text" className="form-control" id="cpf" placeholder="CPF" value={cpf} onChange={(e) => setCpf(e.target.value)} style={inputStyle} />
+                <IMaskInput
+                  mask="000.000.000-00"
+                  placeholder="000.000.000-00"
+                  value={cpf}
+                  onChange={(e) => setCpf(e.target.value)}
+                  style={inputStyle}
+                  className={"form-control"}
+                  id="cpf"
+                  required
+                  unmask={false}
+                />
+                {/*<input type="text" className="form-control" id="cpf" placeholder="CPF" value={cpf} onChange={(e) => setCpf(e.target.value)} style={inputStyle} />*/}
                 <label htmlFor="cpf" style={labelStyle}>CPF</label>
               </div>
 
               <div className="form-floating mb-2">
-                <input type="text" className="form-control" id="rg" placeholder="RG" value={rg} onChange={(e) => setRg(e.target.value)} style={inputStyle} />
+                <IMaskInput
+                  mask="00.000.000"
+                  placeholder="00.000.000"
+                  value={rg}
+                  onChange={(e) => setRg(e.target.value)}
+                  className="form-control"
+                  id="rg"
+                  style={inputStyle}
+                  required
+                  unmask={false}
+                />
+                {/*<input type="text" className="form-control" id="rg" placeholder="RG" value={rg} onChange={(e) => setRg(e.target.value)} style={inputStyle} />*/}
                 <label htmlFor="rg" style={labelStyle}>RG</label>
               </div>
 
               <div className="form-floating mb-2">
-                <input type="tel" className="form-control" id="telefone" placeholder="Telefone" value={phone} onChange={(e) => setPhone(e.target.value)} style={inputStyle} />
+                <IMaskInput
+                  mask="(00) 00000-0000"
+                  placeholder="(00) 00000-0000"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="form-control"
+                  id="telefone"
+                  style={inputStyle}
+                  required
+                  unmask={false}
+                />
+                {/*<input type="tel" className="form-control" id="telefone" placeholder="Telefone" value={phone} onChange={(e) => setPhone(e.target.value)} style={inputStyle} />*/}
                 <label htmlFor="telefone" style={labelStyle}>Telefone</label>
               </div>
 
@@ -176,7 +210,18 @@ export default function Cadastro() {
           {tipoCadastro === "agente" && (
             <>
               <div className="form-floating mb-2">
-                <input type="text" className="form-control" id="cnpj" placeholder="CNPJ" value={cnpj} onChange={(e) => setCnpj(e.target.value)} style={inputStyle} />
+                <IMaskInput
+                  mask="00.000.000/0000-00"
+                  placeholder="00.000.000/0000-00"
+                  value={cnpj}
+                  onChange={(e) => setCnpj(e.target.value)}
+                  className="form-control"
+                  id="cnpj"
+                  style={inputStyle}
+                  required
+                  unmask={false}
+                />
+                {/*<input type="text" className="form-control" id="cnpj" placeholder="CNPJ" value={cnpj} onChange={(e) => setCnpj(e.target.value)} style={inputStyle} />*/}
                 <label htmlFor="cnpj" style={labelStyle}>CNPJ</label>
               </div>
 
