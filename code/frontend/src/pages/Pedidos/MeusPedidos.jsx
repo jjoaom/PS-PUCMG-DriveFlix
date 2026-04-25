@@ -50,26 +50,33 @@ export default function MeusPedidos() {
         <p>Nenhum pedido encontrado.</p>
       ) : (
         <div className="row">
-          {pedidos.map((pedido) => (
-            <div className="col-md-4 mb-4" key={pedido.id}>
-              <div className="card h-100 shadow-sm">
-                <img
-                  src={pedido.imagemUrl}
-                  className="card-img-top"
-                  alt={`${pedido.marca} ${pedido.modelo}`}
-                  style={{ height: "200px", objectFit: "cover" }}
-                />
-                <div className="card-body">
-                  <h5 className="card-title">
-                    {pedido.marca} {pedido.modelo}
-                  </h5>
-                  <p className="card-text"><strong>Placa:</strong> {pedido.placa}</p>
-                  <p className="card-text"><strong>Data:</strong> {pedido.dataPedido}</p>
-                  <p className="card-text"><strong>Status:</strong> {pedido.status}</p>
+          {pedidos.map((pedido) => {
+            const imageSrc = pedido.imagemUrl?.startsWith("/uploads")
+              ? `http://localhost:8080/api${pedido.imagemUrl}`
+              : pedido.imagemUrl;
+
+            return (
+              <div className="col-md-4 mb-4" key={pedido.id}>
+                <div className="card h-100 shadow-sm">
+                  <img
+                    src={imageSrc}
+                    className="card-img-top"
+                    alt={`${pedido.marca} ${pedido.modelo}`}
+                    style={{ height: "200px", objectFit: "cover" }}
+                  />
+
+                  <div className="card-body">
+                    <h5 className="card-title">
+                      {pedido.marca} {pedido.modelo}
+                    </h5>
+                    <p><strong>Placa:</strong> {pedido.placa}</p>
+                    <p><strong>Data:</strong> {pedido.dataPedido}</p>
+                    <p><strong>Status:</strong> {pedido.status}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>

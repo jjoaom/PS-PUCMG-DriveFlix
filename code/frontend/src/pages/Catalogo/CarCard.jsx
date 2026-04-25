@@ -2,13 +2,18 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function CarCard({ carro }) {
-  console.log(carro);
   const navigate = useNavigate();
 
   const [modalAberto, setModalAberto] = useState(false);
   const [etapa, setEtapa] = useState(1);
   const [loading, setLoading] = useState(false);
   const [mensagem, setMensagem] = useState("");
+
+  const imageSrc = carro.imagemUrl?.startsWith("http")
+    ? carro.imagemUrl
+    : carro.imagemUrl?.startsWith("/uploads")
+    ? `http://localhost:8080/api${carro.imagemUrl}`
+    : carro.imagemUrl || "/cars/default-car.jpg";
 
   function abrirModal() {
     setEtapa(1);
@@ -35,7 +40,7 @@ export default function CarCard({ carro }) {
       status: "PENDENTE",
       parecerFinanceiro: "EM_ANALISE",
       clientId: Number(clientId),
-      carId: Number(carro.id)
+      carId: Number(carro.id),
     };
 
     try {
@@ -45,9 +50,9 @@ export default function CarCard({ carro }) {
       const response = await fetch("http://localhost:8080/api/pedidos", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
@@ -72,10 +77,13 @@ export default function CarCard({ carro }) {
         style={{ cursor: "pointer" }}
       >
         <img
-          src={carro.imagemUrl}
+          src={imageSrc}
           className="card-img-top"
           alt={`${carro.marca} ${carro.modelo}`}
           style={{ height: "180px", objectFit: "cover" }}
+          onError={(e) => {
+            e.currentTarget.src = "/cars/default-car.jpg";
+          }}
         />
 
         <div className="card-body">
@@ -95,7 +103,7 @@ export default function CarCard({ carro }) {
             <strong>Preço:</strong>{" "}
             {Number(carro.preco).toLocaleString("pt-BR", {
               style: "currency",
-              currency: "BRL"
+              currency: "BRL",
             })}
           </p>
         </div>
@@ -106,7 +114,7 @@ export default function CarCard({ carro }) {
           className="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
           style={{
             background: "rgba(0, 0, 0, 0.65)",
-            zIndex: 9999
+            zIndex: 9999,
           }}
         >
           <div
@@ -114,13 +122,14 @@ export default function CarCard({ carro }) {
             style={{
               width: "100%",
               maxWidth: "430px",
-              borderRadius: "18px"
+              borderRadius: "18px",
             }}
           >
             <div className="card-body p-4 text-center">
               {etapa === 1 && (
                 <>
                   <h4 className="mb-3">Solicitar aluguel</h4>
+
                   <p className="mb-4">
                     Deseja solicitar o aluguel do carro{" "}
                     <strong>
@@ -147,12 +156,12 @@ export default function CarCard({ carro }) {
               {etapa === 2 && (
                 <>
                   <h4 className="mb-3">Confirmar pedido</h4>
+
                   <p className="mb-2">
                     Essa ação irá gerar uma solicitação de aluguel.
                   </p>
-                  <p className="mb-4">
-                    Confirma o envio do pedido?
-                  </p>
+
+                  <p className="mb-4">Confirma o envio do pedido?</p>
 
                   {mensagem && (
                     <div className="alert alert-danger py-2">{mensagem}</div>
@@ -181,6 +190,7 @@ export default function CarCard({ carro }) {
               {etapa === 3 && (
                 <>
                   <h4 className="mb-3 text-success">Pedido enviado!</h4>
+
                   <p className="mb-4">{mensagem}</p>
 
                   <button

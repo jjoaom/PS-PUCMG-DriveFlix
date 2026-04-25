@@ -13,5 +13,6 @@ data class CarDTO(
     val placa: String,
     val status: String,
     val imagemUrl: String,
-    val preco: Double
+    val preco: Double,
+    val agentId: Long
 )

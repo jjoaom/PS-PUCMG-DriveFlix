@@ -8,6 +8,9 @@ import MeusPedidos from "./pages/Pedidos/MeusPedidos.jsx";
 import Catalogo from "./pages/Catalogo/CatalagoPage.jsx";
 import Perfil from "./pages/user/Perfil.jsx"
 import FormularioPedidos from "./pages/Pedidos/FormularioPedido.jsx";
+import MeusCarros from "./pages/CarrosAgentes/CarrosAgente.jsx";
+import CadastroCarro  from "./pages/CarrosAgentes/CadastroCarro.jsx";
+
 
 //icones importados de https://react-icons.github.io/react-icons/ em cada componente segregado
 function App() {
@@ -23,6 +26,8 @@ function App() {
         <Route path="/pedido/:carId" element={<FormularioPedidos />} />
         <Route path="/Catalogo" element={<Catalogo />} />
         <Route path="/Perfil" element={<Perfil />} />
+        <Route path="/carros" element={<MeusCarros />} />
+        <Route path="/cadastro-carro" element={<CadastroCarro />} />
       </Routes>
     </>
   )

@@ -18,17 +18,27 @@ export default function Header() {
     navigate("/");
   }
 
-  return (
-    <div className="m-2">
-      <ul className="nav nav-tabs align-items-center">
+  const navClass = ({ isActive }) =>
+    `nav-link px-3 ${
+      isActive ? "text-white active-driveflix" : "text-light"
+    }`;
 
-        <li className="nav-item me-2">
+  return (
+    <div
+      className="px-3 py-2"
+      style={{
+        background: "#0b0b14",
+        borderBottom: "1px solid #7c3aed",
+      }}
+    >
+      <ul className="nav align-items-center">
+        <li className="nav-item me-3">
           <NavLink to="/" className="nav-link p-0">
             <img
               src="/driveflix-icon.png"
               alt="Logo"
               className="rounded-circle"
-              style={{ width: "40px", height: "40px" }}
+              style={{ width: "42px", height: "42px" }}
             />
           </NavLink>
         </li>
@@ -36,31 +46,29 @@ export default function Header() {
         {isLogged && isAgente ? (
           <>
             <li className="nav-item">
-              <NavLink to="/" className="nav-link cor_roxa">
-                Home
-              </NavLink>
+              <NavLink to="/" className={navClass}>Home</NavLink>
             </li>
 
             <li className="nav-item">
-              <NavLink to="/catalogo" className="nav-link cor_roxa">
+              <NavLink to="/catalogo" className={navClass}>
                 <IoCarSportSharp /> Catálogo
               </NavLink>
             </li>
 
             <li className="nav-item">
-              <NavLink to="/carros" className="nav-link cor_roxa">
+              <NavLink to="/carros" className={navClass}>
                 <IoCarSportSharp /> Carros
               </NavLink>
             </li>
 
             <li className="nav-item">
-              <NavLink to="/alugueis" className="nav-link cor_roxa">
+              <NavLink to="/alugueis" className={navClass}>
                 <GiCarKey /> Aluguéis
               </NavLink>
             </li>
 
             <li className="nav-item">
-              <NavLink to="/gerenciar-pedidos" className="nav-link cor_roxa">
+              <NavLink to="/gerenciar-pedidos" className={navClass}>
                 <GiCarKey /> Gerenciar Pedidos
               </NavLink>
             </li>
@@ -68,13 +76,13 @@ export default function Header() {
         ) : (
           <>
             <li className="nav-item">
-              <NavLink to="/catalogo" className="nav-link cor_roxa">
+              <NavLink to="/catalogo" className={navClass}>
                 <IoCarSportSharp /> Catálogo
               </NavLink>
             </li>
 
             <li className="nav-item">
-              <NavLink to="/MeusPedidos" className="nav-link cor_roxa">
+              <NavLink to="/MeusPedidos" className={navClass}>
                 <GiCarKey /> Pedidos
               </NavLink>
             </li>
@@ -86,13 +94,13 @@ export default function Header() {
         {!isLogged ? (
           <>
             <li className="nav-item">
-              <NavLink to="/login" className="nav-link cor_roxa">
+              <NavLink to="/login" className={navClass}>
                 <HiOutlineLogin /> Login
               </NavLink>
             </li>
 
             <li className="nav-item">
-              <NavLink to="/cadastro" className="nav-link cor_roxa">
+              <NavLink to="/cadastro" className={navClass}>
                 <HiUserAdd /> Cadastro
               </NavLink>
             </li>
@@ -101,7 +109,7 @@ export default function Header() {
           <>
             {!isAgente && (
               <li className="nav-item">
-                <NavLink to="/perfil" className="nav-link cor_roxa">
+                <NavLink to="/perfil" className={navClass}>
                   <GiFullMotorcycleHelmet /> Perfil
                 </NavLink>
               </li>
@@ -110,15 +118,34 @@ export default function Header() {
             <li className="nav-item">
               <button
                 onClick={handleLogout}
-                className="nav-link cor_roxa btn btn-link"
+                className="nav-link text-light btn btn-link px-3"
+                style={{ textDecoration: "none" }}
               >
                 Sair
               </button>
             </li>
           </>
         )}
-
       </ul>
+
+      <style>
+        {`
+          .nav-link {
+            border: none !important;
+            background: transparent !important;
+            transition: 0.2s ease;
+          }
+
+          .nav-link:hover {
+            color: #a855f7 !important;
+          }
+
+          .active-driveflix {
+            color: #a855f7 !important;
+            font-weight: 600;
+          }
+        `}
+      </style>
     </div>
   );
 }
