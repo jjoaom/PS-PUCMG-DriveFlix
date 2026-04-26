@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Scene from "../homepage/Scene";
 
 export default function CadastroCarro() {
   const navigate = useNavigate();
@@ -63,20 +62,10 @@ export default function CadastroCarro() {
 
   return (
     <>
-      
-
-      <div
-        className="container-fluid d-flex justify-content-center align-items-center py-5"
-        style={{ backgroundColor: "#0b0f1a"}}
-      >
+      <div className="container-fluid d-flex justify-content-center align-items-center py-5 page-shell">
         
         <div
-          className="card p-4 w-100 text-white"
-          style={{
-            maxWidth: "500px",
-            border: "1px solid #1f2937",
-            borderRadius: "12px"
-          }}
+          className="card p-4 w-100 text-white drive-card-static form-shell-500"
         >
           <h3 className="mb-4 text-center">Cadastrar Carro</h3>
 
@@ -85,15 +74,10 @@ export default function CadastroCarro() {
               <label className="form-label text-light">Marca</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control drive-input"
                 value={marca}
                 onChange={(e) => setMarca(e.target.value)}
                 required
-                style={{
-                  backgroundColor: "#111827",
-                  color: "#fff",
-                  border: "1px solid #374151"
-                }}
               />
             </div>
 
@@ -101,15 +85,10 @@ export default function CadastroCarro() {
               <label className="form-label text-light">Modelo</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control drive-input"
                 value={modelo}
                 onChange={(e) => setModelo(e.target.value)}
                 required
-                style={{
-                  backgroundColor: "#111827",
-                  color: "#fff",
-                  border: "1px solid #374151"
-                }}
               />
             </div>
 
@@ -117,15 +96,10 @@ export default function CadastroCarro() {
               <label className="form-label text-light">Placa</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control drive-input"
                 value={placa}
                 onChange={(e) => setPlaca(e.target.value.toUpperCase())}
                 required
-                style={{
-                  backgroundColor: "#111827",
-                  color: "#fff",
-                  border: "1px solid #374151"
-                }}
               />
             </div>
 
@@ -133,17 +107,12 @@ export default function CadastroCarro() {
               <label className="form-label text-light">Preço (R$)</label>
               <input
                 type="number"
-                className="form-control"
+                className="form-control drive-input"
                 value={preco}
                 onChange={(e) => setPreco(e.target.value)}
                 min="0"
                 step="0.01"
                 required
-                style={{
-                  backgroundColor: "#111827",
-                  color: "#fff",
-                  border: "1px solid #374151"
-                }}
               />
             </div>
 
@@ -151,15 +120,10 @@ export default function CadastroCarro() {
               <label className="form-label text-light">Imagem do carro</label>
               <input
                 type="file"
-                className="form-control"
+                className="form-control drive-file-input"
                 accept="image/*"
                 onChange={(e) => setImagemFile(e.target.files[0])}
                 required
-                style={{
-                  backgroundColor: "#111827",
-                  color: "#fff",
-                  border: "1px solid #374151"
-                }}
               />
             </div>
 
@@ -168,12 +132,7 @@ export default function CadastroCarro() {
                 <img
                   src={URL.createObjectURL(imagemFile)}
                   alt="Pré-visualização"
-                  className="img-fluid rounded"
-                  style={{
-                    maxHeight: "180px",
-                    objectFit: "cover",
-                    border: "1px solid #1f2937"
-                  }}
+                  className="img-fluid rounded drive-card-image drive-card-static"
                 />
               </div>
             )}
@@ -182,14 +141,8 @@ export default function CadastroCarro() {
 
             <button
               type="submit"
-              className="btn w-100"
+              className="btn w-100 btn-drive-accent"
               disabled={loading}
-              style={{
-                backgroundColor: "#60a5fa",
-                border: "none",
-                color: "#000",
-                fontWeight: "bold"
-              }}
             >
               {loading ? "Cadastrando..." : "Cadastrar"}
             </button>

@@ -6,11 +6,11 @@ import Lights from "./Lights";
 
 export default function Scene() {
   return (
-    <div className="w-100" style={{ height: "280px" }}>
+    <div className="w-100 scene-wrapper">
       <Canvas
         camera={{ position: [0, 2, 6], fov: 50 }}
         gl={{ alpha: true }}
-        style={{ background: "transparent" }}
+        className="bg-transparent"
       >
         <Lights />
 

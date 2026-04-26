@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import Scene from "../homepage/Scene";
 
 export default function GerenciarPedidos() {
   const [pedidos, setPedidos] = useState([]);
@@ -78,13 +77,7 @@ export default function GerenciarPedidos() {
 
   return (
     <>
-      <div
-        className="container-fluid px-4 py-4"
-        style={{
-          backgroundColor: "#0b0f1a",
-          minHeight: "100vh",
-        }}
-      >
+      <div className="container-fluid page-shell page-shell-padding">
         
         <div className="container-fluid">
           <div className="d-flex align-items-center mb-4 flex-wrap">
@@ -93,34 +86,21 @@ export default function GerenciarPedidos() {
             <h2 className="text-white m-0 me-auto">Pedidos de Aluguel</h2>
 
             {/* CENTRO */}
-            <div className="mx-auto" style={{ width: "400px" }}>
+            <div className="mx-auto toolbar-search-wrap">
               <input
                 type="text"
                 placeholder="Buscar por cliente, carro..."
-                className="form-control text-center"
+                className="form-control text-center text-white drive-input toolbar-control"
                 value={busca}
                 onChange={(e) => setBusca(e.target.value)}
-                style={{
-                  height: "45px",
-                  backgroundColor: "#111827",
-                  color: "#fff",
-                  border: "1px solid #374151"
-                }}
               />
             </div>
 
             {/* DIREITA */}
             <select
-              className="form-select ms-auto"
+              className="form-select ms-auto drive-select toolbar-control"
               value={ordem}
               onChange={(e) => setOrdem(e.target.value)}
-              style={{
-                width: "150px",
-                height: "45px",
-                backgroundColor: "#111827",
-                color: "#fff",
-                border: "1px solid #374151"
-              }}
             >
               <option value="recentes">Recentes</option>
               <option value="antigos">Antigos</option>
@@ -145,43 +125,18 @@ export default function GerenciarPedidos() {
                     className="col-12 col-sm-6 col-md-4 col-lg-3"
                     key={pedido.id}
                   >
-                    <div
-                      className="card h-100"
-                      style={{
-                        backgroundColor: "#111827",
-                        color: "#fff",
-                        border: "1px solid #1f2937",
-                        borderRadius: "12px",
-                        overflow: "hidden",
-                      }}
-                    >
-                      <div style={{ position: "relative" }}>
+                    <div className="card h-100 drive-card-static">
+                      <div className="drive-image-wrap">
                         <img
                           src={imageSrc}
-                          className="card-img-top"
+                          className="card-img-top drive-card-image"
                           alt={`${pedido.marca || ""} ${pedido.modelo || ""}`}
-                          style={{
-                            height: "180px",
-                            objectFit: "cover",
-                          }}
                           onError={(e) => {
                             e.currentTarget.src = "/cars/default-car.jpg";
                           }}
                         />
 
-                        <span
-                          style={{
-                            position: "absolute",
-                            top: "10px",
-                            left: "10px",
-                            backgroundColor: "#60a5fa",
-                            color: "#000",
-                            padding: "4px 10px",
-                            borderRadius: "8px",
-                            fontSize: "12px",
-                            fontWeight: "bold",
-                          }}
-                        >
+                        <span className="drive-floating-badge">
                           {pedido.status || "sem status"}
                         </span>
                       </div>
@@ -200,17 +155,10 @@ export default function GerenciarPedidos() {
                         </p>
 
                         <p className="mb-1 text-secondary">
-                          Data: {formatarData(pedido.dataCriacao)}
+                          Data: {formatarData(pedido.dataPedido)}
                         </p>
 
-                        <p
-                          className="mb-0"
-                          style={{
-                            color: "#60a5fa",
-                            fontWeight: "bold",
-                            fontSize: "16px",
-                          }}
-                        >
+                        <p className="mb-0 drive-price-status">
                           Status: {pedido.status || "Pendente"}
                         </p>
                       </div>

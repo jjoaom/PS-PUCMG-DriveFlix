@@ -73,6 +73,8 @@ CREATE TABLE public.pedidos (
     car_id BIGINT NOT NULL,
     client_id BIGINT NOT NULL,
     data_criacao TIMESTAMP(6) WITHOUT TIME ZONE,
+    data_inicio DATE,
+    data_fim DATE,
     parecer_financeiro VARCHAR(255),
     status VARCHAR(255),
     CONSTRAINT fk_pedidos_car
@@ -89,24 +91,18 @@ INSERT INTO public.users (id, email, name, password) VALUES
     (4, 'v@gmail.com', NULL, '123456'),
     (5, 'agente@driveflix.com', 'Agente Banco', '123456'),
     (6, 'agente@email.com', NULL, '123456'),
-    (7, '', NULL, ''),
-    (8, 'klkn@klnknjnj', NULL, '123'),
-    (9, 'lkn@klnknjnj', NULL, '123'),
-    (10, 'jom@mlklk', NULL, '123'),
-    (11, 'tambas@gmail.com', NULL, '123456'),
-    (12, 'tambasa@gmail.com', NULL, '123456'),
-    (13, 'jeanne@essencialbh.com.br', NULL, '123456'),
-    (14, 'jean@essencialbh.com.br', NULL, '123456'),
-    (15, 'nne@essencialbh.com.br', NULL, '123456'),
-    (16, 'tamb@gmail.com', NULL, '123456'),
-    (17, 'vi@gmail.com', NULL, '123456'),
-    (19, 'vin@gmail.com', NULL, '123456'),
-    (20, 'toshi@gmail.com', NULL, '123456'),
-    (21, 'teste', NULL, 'teste');
+    (7, 'cliente@gmail.com', NULL, '123'),
+    (21, 'teste', NULL, 'teste'),
+    (15, 'agente.sul@driveflix.com', 'Agente Sul', '123456'),
+    (16, 'agente.norte@driveflix.com', 'Agente Norte', '123456'),
+    (19, 'vinny2@email.com', 'Vinny Vinicius', '123456'),
+(   20, 'toshiro@email.com', 'Toshiro', '123456');
 
 INSERT INTO public.agentes (id, cnpj, razao_social, tipo) VALUES
-    (15, '123366665589', 'Tambasa', 'EMPRESA'),
-    (16, '459988566', '555669999', 'EMPRESA');
+    (6, '123366665589', 'Tambasa', 'EMPRESA'),
+    (5, '459988566', '555669999', 'EMPRESA'),
+    (15, '11122233344455', 'Agente Driveflix Sul', 'EMPRESA'),
+    (16, '55544433322211', 'Agente Driveflix Norte', 'EMPRESA');
 
 INSERT INTO public.clients (id, address, cpf, name, phone, rg, renda) VALUES
     (1, 'Rua A, 123', '12345678900', 'Diogo', '31999999999', '1234567', 0),
@@ -138,12 +134,16 @@ INSERT INTO public.carros (id, imagem_url, marca, modelo, placa, preco, status, 
     (21, '/uploads/mysteryMachine.jpg', 'Custom', 'Mystery Machine', 'SCO0BY1', 400, 'disponivel', 16),
     (22, '/uploads/a7ca382b-ed27-442e-873d-de4758405a11.jpg', 'DeLorean', 'DMC-12', 'ASD-9874', 1100, 'disponivel', 16);
 
-INSERT INTO public.pedidos (id, car_id, client_id, data_criacao, parecer_financeiro, status) VALUES
-    (1, 2, 4, '2026-04-23 22:15:06.26969', 'EM_ANALISE', 'PENDENTE'),
-    (2, 22, 4, '2026-04-23 22:23:13.715936', 'EM_ANALISE', 'PENDENTE'),
-    (3, 4, 4, '2026-04-23 22:34:40.268567', 'EM_ANALISE', 'PENDENTE'),
-    (5, 18, 3, '2026-04-25 10:40:44.672319', 'EM_ANALISE', 'PENDENTE'),
-    (6, 12, 4, '2026-04-25 11:25:51.019118', 'EM_ANALISE', 'PENDENTE');
+INSERT INTO public.pedidos (id, car_id, client_id, data_criacao, data_inicio, data_fim, parecer_financeiro, status) VALUES
+    (1, 2, 4, '2026-04-23 22:15:06.26969', NULL, NULL, 'EM_ANALISE', 'PENDENTE'),
+    (2, 22, 4, '2026-04-23 22:23:13.715936', NULL, NULL, 'EM_ANALISE', 'PENDENTE'),
+    (3, 4, 4, '2026-04-23 22:34:40.268567', NULL, NULL, 'EM_ANALISE', 'PENDENTE'),
+    (5, 18, 3, '2026-04-25 10:40:44.672319', NULL, NULL, 'EM_ANALISE', 'PENDENTE'),
+    (6, 12, 4, '2026-04-25 11:25:51.019118', NULL, NULL, 'EM_ANALISE', 'PENDENTE'),
+    (7, 2, 1, '2026-04-26 10:00:00.000000', '2026-04-28', '2026-04-30', 'EM_ANALISE', 'PENDENTE'),
+    (8, 6, 1, '2026-04-26 10:05:00.000000', '2026-05-01', '2026-05-05', 'EM_ANALISE', 'PENDENTE'),
+    (9, 19, 1, '2026-04-26 10:10:00.000000', '2026-05-10', '2026-05-12', 'EM_ANALISE', 'PENDENTE');
+
 
 SELECT setval('public.users_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.users), true);
 SELECT setval('public.carros_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.carros), true);

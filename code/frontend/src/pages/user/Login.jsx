@@ -67,49 +67,20 @@ export default function Login() {
     }
   }
 
-  const inputStyle = {
-    backgroundColor: "#111827",
-    color: "#fff",
-    border: "1px solid #374151",
-  };
-
-  const labelStyle = {
-    color: "#9ca3af",
-  };
-
   return (
-    <div
-      className="d-flex align-items-center justify-content-center"
-      style={{
-        minHeight: "100vh",
-        backgroundColor: "#0b0f1a",
-        padding: "40px 16px",
-      }}
-    >
-      <div className="col-12 col-sm-8 col-md-6 col-lg-4" style={{ maxWidth: "400px" }}>
+    <div className="d-flex align-items-center justify-content-center auth-shell">
+      <div className="col-12 col-sm-8 col-md-6 col-lg-4 auth-wrapper login">
         <form
           onSubmit={handleLogin}
-          className="card p-4 text-center position-relative pt-5"
-          style={{
-            backgroundColor: "#111827",
-            color: "#fff",
-            border: "1px solid #7c3aed",
-            borderRadius: "18px",
-            boxShadow:
-              "0 0 18px rgba(124, 58, 237, 0.8), 0 0 40px rgba(96, 165, 250, 0.25)",
-          }}
+          className="card p-4 text-center position-relative auth-card"
         >
           <img
             src="/driveflix-icon.png"
             alt="Profile"
-            className="rounded-circle position-absolute top-0 start-50 translate-middle object-fit-cover"
-            style={{
-              width: "85px",
-              height: "85px",
-            }}
+            className="rounded-circle position-absolute top-0 start-50 translate-middle object-fit-cover auth-avatar login"
           />
 
-          <h4 className="mb-3" style={{ color: "#a855f7" }}>
+          <h4 className="mb-3 auth-title">
             Login
           </h4>
 
@@ -122,9 +93,9 @@ export default function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              style={inputStyle}
+              className="form-control auth-input"
             />
-            <label htmlFor="floatingInput" style={labelStyle}>
+            <label htmlFor="floatingInput" className="auth-label">
               Endereço de Email
             </label>
           </div>
@@ -138,20 +109,19 @@ export default function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              style={inputStyle}
+              className="form-control auth-input"
             />
-            <label htmlFor="floatingPassword" style={labelStyle}>
+            <label htmlFor="floatingPassword" className="auth-label">
               Senha
             </label>
           </div>
 
           <div className="mb-3">
             <select
-              className="form-select"
+              className="form-select auth-input"
               value={accessType}
               onChange={(e) => setAccessType(e.target.value)}
               required
-              style={inputStyle}
             >
               <option value="">Selecione seu acesso</option>
               <option value="CLIENTE">Cliente</option>
@@ -162,35 +132,21 @@ export default function Login() {
           {error && <p className="text-danger">{error}</p>}
 
           <p>
-            <NavLink
-              to="/forgot-my-password"
-              style={{ color: "#60a5fa" }}
-            >
+            <NavLink to="/forgot-my-password" className="link-accent">
               Esqueci minha senha
             </NavLink>
           </p>
 
           <button
             type="submit"
-            className="btn w-100 mb-2"
-            style={{
-              backgroundColor: "#7c3aed",
-              color: "#fff",
-              fontWeight: "bold",
-              boxShadow: "0 0 12px rgba(124, 58, 237, 0.8)",
-            }}
+            className="btn w-100 mb-2 btn-drive-primary"
           >
             Entrar
           </button>
 
           <NavLink
             to="/cadastro"
-            className="btn w-100"
-            style={{
-              backgroundColor: "#1f2937",
-              color: "#fff",
-              border: "1px solid #7c3aed",
-            }}
+            className="btn w-100 btn-drive-secondary"
           >
             Registre-se
           </NavLink>

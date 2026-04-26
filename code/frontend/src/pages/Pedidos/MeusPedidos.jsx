@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
-import Scene from "../homepage/Scene";
+import { FaCar, FaCalendarAlt, FaClock } from "react-icons/fa";
 
 export default function MeusPedidos() {
+  const clientId = localStorage.getItem("clientId");
   const [pedidos, setPedidos] = useState([]);
-  const [erro, setErro] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [erro, setErro] = useState(
+    clientId ? "" : "clientId não encontrado no localStorage."
+  );
+  const [loading, setLoading] = useState(!!clientId);
 
   useEffect(() => {
-    const clientId = localStorage.getItem("clientId");
-
     if (!clientId) {
-      setErro("clientId não encontrado no localStorage.");
-      setLoading(false);
       return;
     }
 
@@ -29,7 +28,7 @@ export default function MeusPedidos() {
         setPedidos([]);
       })
       .finally(() => setLoading(false));
-  }, []);
+  }, [clientId]);
 
   function montarImagemUrl(imagemUrl) {
     if (!imagemUrl) return "/cars/default-car.jpg";
@@ -52,15 +51,7 @@ export default function MeusPedidos() {
 
   return (
     <>
-      
-
-      <div
-        className="container-fluid px-4 py-4"
-        style={{
-          backgroundColor: "#0b0f1a",
-          minHeight: "100vh",
-        }}
-      >
+      <div className="container-fluid page-shell page-shell-padding">
         <div className="container-fluid">
           <div className="d-flex justify-content-between align-items-center mb-4 gap-3 flex-wrap">
             <h2 className="text-white m-0">Meus Pedidos</h2>
@@ -84,70 +75,64 @@ export default function MeusPedidos() {
                     className="col-12 col-sm-6 col-md-4 col-lg-3"
                     key={pedido.id}
                   >
-                    <div
-                      className="card h-100"
-                      style={{
-                        backgroundColor: "#111827",
-                        color: "#fff",
-                        border: "1px solid #1f2937",
-                        borderRadius: "12px",
-                        overflow: "hidden",
-                      }}
-                    >
-                      <div style={{ position: "relative" }}>
+                    <div className="card h-100 drive-card-static">
+                      <div className="drive-image-wrap">
                         <img
                           src={imageSrc}
-                          className="card-img-top"
+                          className="card-img-top drive-card-image"
                           alt={`${pedido.marca || ""} ${pedido.modelo || ""}`}
-                          style={{
-                            height: "180px",
-                            objectFit: "cover",
-                          }}
                           onError={(e) => {
                             e.currentTarget.src = "/cars/default-car.jpg";
                           }}
                         />
 
-                        <span
-                          style={{
-                            position: "absolute",
-                            top: "10px",
-                            left: "10px",
-                            backgroundColor: "#60a5fa",
-                            color: "#000",
-                            padding: "4px 10px",
-                            borderRadius: "8px",
-                            fontSize: "12px",
-                            fontWeight: "bold",
-                          }}
-                        >
+                        <span className="drive-floating-badge">
                           {pedido.status || "sem status"}
                         </span>
                       </div>
 
-                      <div className="card-body">
-                        <h5 className="card-title mb-2">
+                      <div className="card-body d-flex flex-column gap-2 p-3">
+                        <h5 className="card-title mb-0">
                           {pedido.marca} {pedido.modelo}
                         </h5>
 
-                        <p className="mb-1 text-secondary">
-                          Placa: {pedido.placa || "Não informada"}
-                        </p>
-
-                        <p className="mb-1 text-secondary">
-                          Data: {formatarData(pedido.dataCriacao)}
-                        </p>
-
-                        <p
-                          className="mb-0"
-                          style={{
-                            color: "#60a5fa",
-                            fontWeight: "bold",
-                            fontSize: "16px",
-                          }}
+                        <span
+                          className={`drive-status-chip ${
+                            pedido.status === "APROVADO"
+                              ? "drive-status-aprovado"
+                              : pedido.status === "REPROVADO"
+                                ? "drive-status-reprovado"
+                                : "drive-status-pendente"
+                          }`}
                         >
-                          Status: {pedido.status || "Pendente"}
+                          {pedido.status || "PENDENTE"}
+                        </span>
+
+                        <p className="mb-0 drive-meta-text">
+                          <FaCar className="me-2" />
+                          {pedido.placa || "Placa não informada"}
                         </p>
+
+                        {pedido.dataInicio && pedido.dataFim && (
+                          <p className="mb-0 drive-meta-text">
+                            <FaCalendarAlt className="me-2" />
+                            {pedido.dataInicio} → {pedido.dataFim}
+                          </p>
+                        )}
+
+                        <p className="mb-0 drive-meta-text">
+                          <FaClock className="me-2" />
+                          Pedido em: {formatarData(pedido.dataPedido)}
+                        </p>
+
+                        {pedido.valorTotal != null && (
+                          <p className="mb-0 mt-1 drive-price-total">
+                            {Number(pedido.valorTotal).toLocaleString("pt-BR", {
+                              style: "currency",
+                              currency: "BRL",
+                            })}
+                          </p>
+                        )}
                       </div>
                     </div>
                   </div>

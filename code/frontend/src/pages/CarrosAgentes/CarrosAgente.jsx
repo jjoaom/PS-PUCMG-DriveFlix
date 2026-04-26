@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Scene from "../homepage/Scene";
-import CarCard from "../catalogo/CarCard";
+import CarCard from "../Catalogo/CarCard";
 
 export default function CarrosAgente() {
   const navigate = useNavigate();
@@ -71,8 +70,7 @@ export default function CarrosAgente() {
 
   return (
     <>
-      <div
-        className="container-fluid px-4 py-4">
+      <div className="container-fluid page-shell page-shell-padding">
         
         {/* HEADER */}
         <div className="d-flex align-items-center mb-4 flex-wrap">
@@ -81,19 +79,13 @@ export default function CarrosAgente() {
           <h2 className="text-white m-0 me-auto">Meus Carros</h2>
 
           {/* CENTRO */}
-          <div className="mx-auto" style={{ width: "400px" }}>
+          <div className="mx-auto toolbar-search-wrap">
             <input
               type="text"
-              className="form-control text-center"
+              className="form-control text-center text-white drive-input toolbar-control"
               placeholder="Buscar por marca ou modelo..."
               value={busca}
               onChange={(e) => setBusca(e.target.value)}
-              style={{
-                height: "45px",
-                backgroundColor: "#111827",
-                color: "#fff",
-                border: "1px solid #374151",
-              }}
             />
           </div>
 
@@ -101,28 +93,19 @@ export default function CarrosAgente() {
           <div className="d-flex align-items-center gap-3 ms-auto">
 
             <button
-              className="btn"
+              className="btn btn-drive-accent"
               onClick={() => navigate("/cadastro-carro")}
-              style={{
-                backgroundColor: "#60a5fa",
-                color: "#000",
-                fontWeight: "bold",
-              }}
             >
               Cadastrar carro
             </button>
 
             <div className="form-check m-0">
               <input
-                className="form-check-input"
+                className="form-check-input drive-check"
                 type="checkbox"
                 id="disponiveisCheck"
                 checked={somenteDisponiveis}
                 onChange={(e) => setSomenteDisponiveis(e.target.checked)}
-                style={{
-                  backgroundColor: "#111827",
-                  borderColor: "#374151",
-                }}
               />
               <label
                 className="form-check-label text-white"
@@ -133,16 +116,9 @@ export default function CarrosAgente() {
             </div>
 
             <select
-              className="form-select"
+              className="form-select drive-select toolbar-control"
               value={ordem}
               onChange={(e) => setOrdem(e.target.value)}
-              style={{
-                width: "160px",
-                height: "45px",
-                backgroundColor: "#111827",
-                color: "#fff",
-                border: "1px solid #374151",
-              }}
             >
               <option value="">Ordenar</option>
               <option value="recentes">Mais recentes</option>

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Scene from "../homepage/Scene";
 import CarCard from "./CarCard";
 
 export default function Catalogo() {
@@ -57,13 +56,7 @@ export default function Catalogo() {
 
   return (
     <>
-      <div
-        className="container-fluid px-4 py-4"
-        style={{
-          backgroundColor: "#0b0f1a",
-          minHeight: "100vh",
-        }}
-      >
+      <div className="container-fluid page-shell page-shell-padding">
         
         {/* HEADER */}
         <div className="d-flex align-items-center mb-4 flex-wrap">
@@ -72,19 +65,13 @@ export default function Catalogo() {
           <h2 className="text-white m-0 me-auto">Carros</h2>
 
           {/* CENTRO */}
-          <div className="mx-auto" style={{ width: "400px" }}>
+          <div className="mx-auto toolbar-search-wrap">
             <input
               type="text"
-              className="form-control text-center"
+              className="form-control text-center text-white drive-input toolbar-control"
               placeholder="Buscar por marca ou modelo..."
               value={busca}
               onChange={(e) => setBusca(e.target.value)}
-              style={{
-                height: "45px",
-                backgroundColor: "#111827",
-                color: "#fff",
-                border: "1px solid #374151",
-              }}
             />
           </div>
 
@@ -94,15 +81,11 @@ export default function Catalogo() {
             {/* CHECKBOX */}
             <div className="form-check m-0">
               <input
-                className="form-check-input"
+                className="form-check-input drive-check"
                 type="checkbox"
                 id="disponiveisCheck"
                 checked={somenteDisponiveis}
                 onChange={(e) => setSomenteDisponiveis(e.target.checked)}
-                style={{
-                  backgroundColor: "#111827",
-                  borderColor: "#374151",
-                }}
               />
               <label
                 className="form-check-label text-white"
@@ -114,16 +97,9 @@ export default function Catalogo() {
 
             {/* SELECT */}
             <select
-              className="form-select"
+              className="form-select drive-select toolbar-control"
               value={ordem}
               onChange={(e) => setOrdem(e.target.value)}
-              style={{
-                width: "150px",
-                height: "45px",
-                backgroundColor: "#111827",
-                color: "#fff",
-                border: "1px solid #374151",
-              }}
             >
               <option value="">Ordenar</option>
               <option value="menor">Menor preço</option>

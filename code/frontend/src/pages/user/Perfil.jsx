@@ -99,80 +99,42 @@ export default function Perfil() {
     setEditandoRenda(false);
   }
 
-  const inputStyle = {
-    backgroundColor: "#111827",
-    color: "#fff",
-    border: "1px solid #374151",
-    boxShadow: "none",
-  };
-
   if (loading) {
     return (
-      <div
-        className="d-flex align-items-center justify-content-center"
-        style={{
-          minHeight: "100vh",
-          backgroundColor: "#0b0f1a",
-          color: "#fff",
-        }}
-      >
+      <div className="d-flex align-items-center justify-content-center text-white page-shell">
         Carregando perfil...
       </div>
     );
   }
 
   return (
-    <div
-      className="d-flex justify-content-center py-5"
-      style={{
-        minHeight: "100vh",
-        backgroundColor: "#0b0f1a",
-        color: "#fff",
-        paddingInline: "16px",
-      }}
-    >
-      <div style={{ width: "100%", maxWidth: "520px" }}>
-        <h1
-          className="text-center mb-4"
-          style={{
-            color: "#a855f7",
-            textShadow: "0 0 14px rgba(168, 85, 247, 0.65)",
-          }}
-        >
-          Perfil do Cliente
+    <div className="d-flex justify-content-center py-5 text-white perfil-shell">
+      <div className="perfil-wrapper">
+        <h1 className="text-center mb-4 perfil-title">
+          Bem vindo, {cliente.name}
         </h1>
 
         {erro && <div className="alert alert-danger">{erro}</div>}
 
         {cliente && (
-          <div
-            className="card p-4"
-            style={{
-              backgroundColor: "#111827",
-              color: "#fff",
-              border: "1px solid #7c3aed",
-              borderRadius: "18px",
-              boxShadow:
-                "0 0 18px rgba(124, 58, 237, 0.75), 0 0 38px rgba(96, 165, 250, 0.25)",
-            }}
-          >
-            <div className="mb-3" style={{ color: "#d1d5db" }}>
+          <div className="card p-4 perfil-card">
+            <div className="mb-3 perfil-text">
               <strong className="text-white">Nome:</strong> {cliente.name}
             </div>
 
-            <div className="mb-3" style={{ color: "#d1d5db" }}>
+            <div className="mb-3 perfil-text">
               <strong className="text-white">CPF:</strong> {cliente.cpf}
             </div>
 
-            <div className="mb-3" style={{ color: "#d1d5db" }}>
+            <div className="mb-3 perfil-text">
               <strong className="text-white">RG:</strong> {cliente.rg}
             </div>
 
-            <div className="mb-3" style={{ color: "#d1d5db" }}>
+            <div className="mb-3 perfil-text">
               <strong className="text-white">Telefone:</strong> {cliente.phone}
             </div>
 
-            <div className="mb-3" style={{ color: "#d1d5db" }}>
+            <div className="mb-3 perfil-text">
               <strong className="text-white">Endereço:</strong> {cliente.address}
             </div>
 
@@ -183,57 +145,37 @@ export default function Perfil() {
 
               <input
                 type="text"
-                className="form-control"
+                className={`form-control perfil-input ${!editandoRenda ? "opacity-75" : ""}`}
                 value={formatarMoeda(renda)}
                 disabled={!editandoRenda}
                 onChange={(e) => {
                   const valorLimpo = apenasNumeros(e.target.value);
                   setRenda(valorLimpo);
                 }}
-                style={{
-                  ...inputStyle,
-                  opacity: editandoRenda ? 1 : 0.75,
-                }}
               />
             </div>
 
             {!editandoRenda ? (
               <button
-                className="btn w-100"
+                className="btn w-100 btn-drive-primary"
                 onClick={() => setEditandoRenda(true)}
-                style={{
-                  backgroundColor: "#7c3aed",
-                  color: "#fff",
-                  fontWeight: "bold",
-                  boxShadow: "0 0 12px rgba(124, 58, 237, 0.8)",
-                }}
               >
                 Editar renda
               </button>
             ) : (
               <div className="d-flex gap-2">
                 <button
-                  className="btn w-50"
+                  className="btn w-50 btn-drive-success"
                   onClick={salvarRenda}
                   disabled={salvando}
-                  style={{
-                    backgroundColor: "#22c55e",
-                    color: "#fff",
-                    fontWeight: "bold",
-                  }}
                 >
                   {salvando ? "Salvando..." : "Salvar"}
                 </button>
 
                 <button
-                  className="btn w-50"
+                  className="btn w-50 btn-drive-secondary"
                   onClick={cancelarEdicao}
                   disabled={salvando}
-                  style={{
-                    backgroundColor: "#1f2937",
-                    color: "#fff",
-                    border: "1px solid #374151",
-                  }}
                 >
                   Cancelar
                 </button>
@@ -244,26 +186,10 @@ export default function Perfil() {
 
         {modalSucesso && (
           <div
-            className="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
-            style={{
-              background: "rgba(0, 0, 0, 0.75)",
-              zIndex: 9999,
-            }}
+            className="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center overlay-modal-strong"
           >
-            <div
-              className="card text-center p-4"
-              style={{
-                width: "100%",
-                maxWidth: "380px",
-                backgroundColor: "#111827",
-                color: "#fff",
-                border: "1px solid #22c55e",
-                borderRadius: "18px",
-                boxShadow:
-                  "0 0 18px rgba(34, 197, 94, 0.75), 0 0 38px rgba(34, 197, 94, 0.25)",
-              }}
-            >
-              <h4 className="mb-3" style={{ color: "#22c55e" }}>
+            <div className="card text-center p-4 perfil-success-card">
+              <h4 className="mb-3 perfil-success-title">
                 Renda atualizada!
               </h4>
 
@@ -272,13 +198,8 @@ export default function Perfil() {
               </p>
 
               <button
-                className="btn"
+                className="btn btn-drive-success"
                 onClick={() => setModalSucesso(false)}
-                style={{
-                  backgroundColor: "#22c55e",
-                  color: "#fff",
-                  fontWeight: "bold",
-                }}
               >
                 OK
               </button>

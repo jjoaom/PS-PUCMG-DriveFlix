@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 import java.time.LocalDateTime
+import java.time.LocalDate
 
 @Serdeable
 @Entity
@@ -18,6 +19,8 @@ data class Pedido(
     val id: Long? = null,
 
     val dataCriacao: LocalDateTime = LocalDateTime.now(),
+    val dataInicio: LocalDate? = null,
+    val dataFim: LocalDate? = null,
     val status: String = "",
     val parecerFinanceiro: String = "",
     val clientId: Long = 0,

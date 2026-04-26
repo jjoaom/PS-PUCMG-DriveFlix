@@ -4,221 +4,159 @@ import { useNavigate } from "react-router-dom";
 export default function CarCard({ carro }) {
   const navigate = useNavigate();
 
-  const [modalAberto, setModalAberto] = useState(false);
-  const [etapa, setEtapa] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [mensagem, setMensagem] = useState("");
+  const [etapa, setEtapa] = useState(0);
+  const [enviando, setEnviando] = useState(false);
+  const [erro, setErro] = useState("");
+  const [dataInicio, setDataInicio] = useState("");
+  const [dataFim, setDataFim] = useState("");
+
+  const hoje = new Date().toISOString().split("T")[0];
+
+  const numeroDias =
+    dataInicio && dataFim
+      ? Math.max(0, Math.ceil((new Date(dataFim) - new Date(dataInicio)) / (1000 * 60 * 60 * 24)))
+      : 0;
+
+  const valorTotal = numeroDias * (carro.preco || 0);
 
   const imageSrc = carro.imagemUrl?.startsWith("/uploads")
-  ? `http://localhost:8080/api${carro.imagemUrl}`
-  : carro.imagemUrl || "/cars/default-car.jpg";
+    ? `http://localhost:8080/api${carro.imagemUrl}`
+    : carro.imagemUrl || "/cars/default-car.jpg";
 
-  function abrirModal() {
-    setEtapa(1);
-    setMensagem("");
-    setModalAberto(true);
+  function fecharTudo() {
+    setEtapa(0);
+    setErro("");
+    setDataInicio("");
+    setDataFim("");
   }
 
-  function fecharModal() {
-    if (loading) return;
-    setModalAberto(false);
-    setEtapa(1);
-    setMensagem("");
-  }
-
-  async function criarPedido() {
-    const clientId = localStorage.getItem("clientId");
-
-    if (!clientId) {
-      setMensagem("Cliente não identificado. Faça login novamente.");
+  async function enviarPedido() {
+    if (!dataInicio || !dataFim) {
+      setErro("Preencha as duas datas.");
+      return;
+    }
+    if (new Date(dataFim) <= new Date(dataInicio)) {
+      setErro("A data de devolução deve ser após a data de retirada.");
       return;
     }
 
-    const payload = {
-      status: "PENDENTE",
-      parecerFinanceiro: "EM_ANALISE",
-      clientId: Number(clientId),
-      carId: Number(carro.id),
-    };
+    const clientId = localStorage.getItem("userId");
+    if (!clientId) {
+      setErro("Cliente não identificado. Faça login novamente.");
+      return;
+    }
+
+    setEnviando(true);
+    setErro("");
 
     try {
-      setLoading(true);
-      setMensagem("");
-
-      const response = await fetch("http://localhost:8080/api/pedidos", {
+      const response = await fetch("/api/pedidos", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          clientId: Number(clientId),
+          carId: Number(carro.id),
+          dataInicio,
+          dataFim,
+        }),
       });
 
-      if (!response.ok) {
-        throw new Error("Erro ao criar pedido.");
-      }
-
+      if (!response.ok) throw new Error();
       setEtapa(3);
-      setMensagem("Pedido criado com sucesso!");
-    } catch (err) {
-      console.error(err);
-      setMensagem("Não foi possível criar o pedido.");
+    } catch {
+      setErro("Erro ao enviar pedido. Tente novamente.");
     } finally {
-      setLoading(false);
+      setEnviando(false);
     }
   }
 
   return (
     <>
       <div
-        className="card h-100"
-        onClick={abrirModal}
-        style={{
-          cursor: "pointer",
-          backgroundColor: "#111827",
-          color: "#fff",
-          border: "1px solid #1f2937",
-          borderRadius: "12px",
-          overflow: "hidden",
-          transition: "all 0.2s ease"
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = "scale(1.03)";
-          e.currentTarget.style.border = "1px solid #60a5fa";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = "scale(1)";
-          e.currentTarget.style.border = "1px solid #1f2937";
-        }}
-        >
-        <div style={{ position: "relative" }}>
+        className="card h-100 drive-card"
+        onClick={() => setEtapa(1)}
+      >
+        <div className="drive-image-wrap">
           <img
             src={imageSrc}
-            className="card-img-top"
+            className="card-img-top drive-card-image"
             alt={`${carro.marca} ${carro.modelo}`}
-            style={{
-              height: "180px",
-              objectFit: "cover"
-            }}
-            onError={(e) => {
-              e.currentTarget.src = "/cars/default-car.jpg";
-            }}
+            onError={(e) => { e.currentTarget.src = "/cars/default-car.jpg"; }}
           />
-
-          {/* Badge de status */}
-          <span
-            style={{
-              position: "absolute",
-              top: "10px",
-              left: "10px",
-              backgroundColor: "#60a5fa",
-              color: "#000",
-              padding: "4px 10px",
-              borderRadius: "8px",
-              fontSize: "12px",
-              fontWeight: "bold"
-            }}
-          >
+          <span className="drive-floating-badge">
             {carro.status}
           </span>
         </div>
-
         <div className="card-body">
-          <h5 className="card-title mb-2">
-            {carro.marca} {carro.modelo}
-          </h5>
-
-          <p className="mb-1 text-secondary">
-            Placa: {carro.placa}
-          </p>
-
-          <p
-            className="mb-0"
-            style={{
-              color: "#60a5fa",
-              fontWeight: "bold",
-              fontSize: "18px"
-            }}
-          >
-            {Number(carro.preco).toLocaleString("pt-BR", {
-              style: "currency",
-              currency: "BRL",
-            })}
+          <h5 className="card-title mb-2">{carro.marca} {carro.modelo}</h5>
+          <p className="mb-1 text-secondary">Placa: {carro.placa}</p>
+          <p className="mb-0 drive-price">
+            {Number(carro.preco).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
+            <span className="drive-price-small"> /dia</span>
           </p>
         </div>
-        </div>
-      {modalAberto && (
+      </div>
+
+      {etapa > 0 && (
         <div
-          className="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
-          style={{
-            background: "rgba(0, 0, 0, 0.65)",
-            zIndex: 9999,
-          }}
+          className="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center overlay-modal"
         >
-          <div
-            className="card shadow-lg border-0"
-            style={{
-              width: "100%",
-              maxWidth: "430px",
-              borderRadius: "18px",
-            }}
-          >
-            <div className="card-body p-4 text-center">
+          <div className="card shadow-lg border-0 modal-drive">
+            <div className="card-body p-4">
+
               {etapa === 1 && (
                 <>
-                  <h4 className="mb-3">Solicitar aluguel</h4>
-
-                  <p className="mb-4">
-                    Deseja solicitar o aluguel do carro{" "}
-                    <strong>
-                      {carro.marca} {carro.modelo}
-                    </strong>
-                    ?
+                  <h4 className="mb-3 text-center">Solicitar aluguel</h4>
+                  <p className="text-center mb-4">
+                    Deseja alugar o <strong>{carro.marca} {carro.modelo}</strong>?
                   </p>
-
                   <div className="d-flex gap-2 justify-content-center">
-                    <button className="btn btn-secondary" onClick={fecharModal}>
-                      Cancelar
-                    </button>
-
-                    <button
-                      className="btn btn-primary"
-                      onClick={() => setEtapa(2)}
-                    >
-                      Continuar
-                    </button>
+                    <button className="btn btn-secondary" onClick={fecharTudo}>Cancelar</button>
+                    <button className="btn btn-primary" onClick={() => setEtapa(2)}>Continuar</button>
                   </div>
                 </>
               )}
 
               {etapa === 2 && (
                 <>
-                  <h4 className="mb-3">Confirmar pedido</h4>
+                  <h4 className="mb-3 text-center">Período do aluguel</h4>
 
-                  <p className="mb-2">
-                    Essa ação irá gerar uma solicitação de aluguel.
-                  </p>
+                  <div className="mb-3">
+                    <label className="form-label">Data de retirada</label>
+                    <input
+                      type="date"
+                      className="form-control"
+                      min={hoje}
+                      value={dataInicio}
+                      onChange={(e) => { setDataInicio(e.target.value); setErro(""); }}
+                    />
+                  </div>
 
-                  <p className="mb-4">Confirma o envio do pedido?</p>
+                  <div className="mb-3">
+                    <label className="form-label">Data de devolução</label>
+                    <input
+                      type="date"
+                      className="form-control"
+                      min={dataInicio || hoje}
+                      value={dataFim}
+                      onChange={(e) => { setDataFim(e.target.value); setErro(""); }}
+                    />
+                  </div>
 
-                  {mensagem && (
-                    <div className="alert alert-danger py-2">{mensagem}</div>
+                  {numeroDias > 0 && (
+                    <div className="alert alert-info py-2 mb-3">
+                      <strong>{numeroDias} dia{numeroDias > 1 ? "s" : ""}</strong> ×{" "}
+                      {Number(carro.preco).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })} ={" "}
+                      <strong>{valorTotal.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</strong>
+                    </div>
                   )}
 
-                  <div className="d-flex gap-2 justify-content-center">
-                    <button
-                      className="btn btn-secondary"
-                      onClick={() => setEtapa(1)}
-                      disabled={loading}
-                    >
-                      Voltar
-                    </button>
+                  {erro && <div className="alert alert-danger py-2 mb-3">{erro}</div>}
 
-                    <button
-                      className="btn btn-success"
-                      onClick={criarPedido}
-                      disabled={loading}
-                    >
-                      {loading ? "Enviando..." : "Confirmar"}
+                  <div className="d-flex gap-2 justify-content-center">
+                    <button className="btn btn-secondary" onClick={() => setEtapa(1)} disabled={enviando}>Voltar</button>
+                    <button className="btn btn-success" onClick={enviarPedido} disabled={enviando}>
+                      {enviando ? "Enviando..." : "Confirmar pedido"}
                     </button>
                   </div>
                 </>
@@ -226,18 +164,23 @@ export default function CarCard({ carro }) {
 
               {etapa === 3 && (
                 <>
-                  <h4 className="mb-3 text-success">Pedido enviado!</h4>
-
-                  <p className="mb-4">{mensagem}</p>
-
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => navigate("/MeusPedidos")}
-                  >
-                    Ver meus pedidos
-                  </button>
+                  <h4 className="mb-3 text-success text-center">Pedido enviado!</h4>
+                  <p className="text-center mb-1">
+                    <strong>{carro.marca} {carro.modelo}</strong>
+                  </p>
+                  <p className="text-center text-muted mb-4">
+                    {numeroDias} dia{numeroDias > 1 ? "s" : ""} •{" "}
+                    {valorTotal.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
+                  </p>
+                  <div className="d-flex gap-2 justify-content-center">
+                    <button className="btn btn-secondary" onClick={fecharTudo}>Fechar</button>
+                    <button className="btn btn-primary" onClick={() => navigate("/MeusPedidos")}>
+                      Ver meus pedidos
+                    </button>
+                  </div>
                 </>
               )}
+
             </div>
           </div>
         </div>

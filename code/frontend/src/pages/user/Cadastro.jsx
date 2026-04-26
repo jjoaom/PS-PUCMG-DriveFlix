@@ -67,49 +67,20 @@ export default function Cadastro() {
     }
   }
 
-  const inputStyle = {
-    backgroundColor: "#111827",
-    color: "#fff",
-    border: "1px solid #374151",
-  };
-
-  const labelStyle = {
-    color: "#9ca3af",
-  };
-
   return (
-    <div
-      className="d-flex align-items-center justify-content-center"
-      style={{
-        minHeight: "100vh",
-        backgroundColor: "#0b0f1a",
-        padding: "40px 16px",
-      }}
-    >
-      <div className="col-12 col-sm-8 col-md-6 col-lg-4" style={{ maxWidth: "430px" }}>
+    <div className="d-flex align-items-center justify-content-center auth-shell">
+      <div className="col-12 col-sm-8 col-md-6 col-lg-4 auth-wrapper">
         <form
           onSubmit={handleCadastro}
-          className="card p-4 text-center position-relative pt-5"
-          style={{
-            backgroundColor: "#111827",
-            color: "#fff",
-            border: "1px solid #7c3aed",
-            borderRadius: "18px",
-            boxShadow:
-              "0 0 18px rgba(124, 58, 237, 0.75), 0 0 38px rgba(96, 165, 250, 0.25)",
-          }}
+          className="card p-4 text-center position-relative auth-card"
         >
           <img
             src="/driveflix-icon.png"
             alt="Profile"
-            className="rounded-circle position-absolute top-0 start-50 translate-middle object-fit-cover"
-            style={{
-              width: "86px",
-              height: "86px",
-            }}
+            className="rounded-circle position-absolute top-0 start-50 translate-middle object-fit-cover auth-avatar"
           />
 
-          <h4 className="mb-3" style={{ color: "#a855f7" }}>
+          <h4 className="mb-3 auth-title">
             {tipoCadastro === "cliente"
               ? "Cadastro de Cliente"
               : "Cadastro de Agente"}
@@ -118,28 +89,16 @@ export default function Cadastro() {
           <div className="d-flex gap-2 mb-3">
             <button
               type="button"
-              className="btn w-50"
+              className={`btn w-50 cadastro-toggle ${tipoCadastro === "cliente" ? "active" : ""}`}
               onClick={() => setTipoCadastro("cliente")}
-              style={{
-                backgroundColor:
-                  tipoCadastro === "cliente" ? "#7c3aed" : "transparent",
-                color: "#fff",
-                border: "1px solid #7c3aed",
-              }}
             >
               Cliente
             </button>
 
             <button
               type="button"
-              className="btn w-50"
+              className={`btn w-50 cadastro-toggle ${tipoCadastro === "agente" ? "active" : ""}`}
               onClick={() => setTipoCadastro("agente")}
-              style={{
-                backgroundColor:
-                  tipoCadastro === "agente" ? "#7c3aed" : "transparent",
-                color: "#fff",
-                border: "1px solid #7c3aed",
-              }}
             >
               Agente
             </button>
@@ -148,8 +107,8 @@ export default function Cadastro() {
           {tipoCadastro === "cliente" && (
             <>
               <div className="form-floating mb-2">
-                <input type="text" className="form-control" id="nome" placeholder="Nome completo" value={name} onChange={(e) => setName(e.target.value)} style={inputStyle} />
-                <label htmlFor="nome" style={labelStyle}>Nome completo</label>
+                <input type="text" className="form-control auth-input" id="nome" placeholder="Nome completo" value={name} onChange={(e) => setName(e.target.value)} />
+                <label htmlFor="nome" className="auth-label">Nome completo</label>
               </div>
 
               <div className="form-floating mb-2">
@@ -158,14 +117,12 @@ export default function Cadastro() {
                   placeholder="000.000.000-00"
                   value={cpf}
                   onChange={(e) => setCpf(e.target.value)}
-                  style={inputStyle}
-                  className={"form-control"}
+                  className="form-control auth-input"
                   id="cpf"
                   required
                   unmask={false}
                 />
-                {/*<input type="text" className="form-control" id="cpf" placeholder="CPF" value={cpf} onChange={(e) => setCpf(e.target.value)} style={inputStyle} />*/}
-                <label htmlFor="cpf" style={labelStyle}>CPF</label>
+                <label htmlFor="cpf" className="auth-label">CPF</label>
               </div>
 
               <div className="form-floating mb-2">
@@ -174,14 +131,12 @@ export default function Cadastro() {
                   placeholder="00.000.000"
                   value={rg}
                   onChange={(e) => setRg(e.target.value)}
-                  className="form-control"
+                  className="form-control auth-input"
                   id="rg"
-                  style={inputStyle}
                   required
                   unmask={false}
                 />
-                {/*<input type="text" className="form-control" id="rg" placeholder="RG" value={rg} onChange={(e) => setRg(e.target.value)} style={inputStyle} />*/}
-                <label htmlFor="rg" style={labelStyle}>RG</label>
+                <label htmlFor="rg" className="auth-label">RG</label>
               </div>
 
               <div className="form-floating mb-2">
@@ -190,19 +145,17 @@ export default function Cadastro() {
                   placeholder="(00) 00000-0000"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="form-control"
+                  className="form-control auth-input"
                   id="telefone"
-                  style={inputStyle}
                   required
                   unmask={false}
                 />
-                {/*<input type="tel" className="form-control" id="telefone" placeholder="Telefone" value={phone} onChange={(e) => setPhone(e.target.value)} style={inputStyle} />*/}
-                <label htmlFor="telefone" style={labelStyle}>Telefone</label>
+                <label htmlFor="telefone" className="auth-label">Telefone</label>
               </div>
 
               <div className="form-floating mb-2">
-                <input type="text" className="form-control" id="address" placeholder="Endereço" value={address} onChange={(e) => setAddress(e.target.value)} style={inputStyle} />
-                <label htmlFor="address" style={labelStyle}>Endereço</label>
+                <input type="text" className="form-control auth-input" id="address" placeholder="Endereço" value={address} onChange={(e) => setAddress(e.target.value)} />
+                <label htmlFor="address" className="auth-label">Endereço</label>
               </div>
             </>
           )}
@@ -215,44 +168,42 @@ export default function Cadastro() {
                   placeholder="00.000.000/0000-00"
                   value={cnpj}
                   onChange={(e) => setCnpj(e.target.value)}
-                  className="form-control"
+                  className="form-control auth-input"
                   id="cnpj"
-                  style={inputStyle}
                   required
                   unmask={false}
                 />
-                {/*<input type="text" className="form-control" id="cnpj" placeholder="CNPJ" value={cnpj} onChange={(e) => setCnpj(e.target.value)} style={inputStyle} />*/}
-                <label htmlFor="cnpj" style={labelStyle}>CNPJ</label>
+                <label htmlFor="cnpj" className="auth-label">CNPJ</label>
               </div>
 
               <div className="form-floating mb-2">
-                <input type="text" className="form-control" id="razaoSocial" placeholder="Razão Social" value={razaoSocial} onChange={(e) => setRazaoSocial(e.target.value)} style={inputStyle} />
-                <label htmlFor="razaoSocial" style={labelStyle}>Razão Social</label>
+                <input type="text" className="form-control auth-input" id="razaoSocial" placeholder="Razão Social" value={razaoSocial} onChange={(e) => setRazaoSocial(e.target.value)} />
+                <label htmlFor="razaoSocial" className="auth-label">Razão Social</label>
               </div>
 
               <div className="form-floating mb-2">
-                <select className="form-select" id="tipoAgente" value={tipoAgente} onChange={(e) => setTipoAgente(e.target.value)} style={inputStyle}>
+                <select className="form-select auth-input" id="tipoAgente" value={tipoAgente} onChange={(e) => setTipoAgente(e.target.value)}>
                   <option value="EMPRESA">Empresa</option>
                   <option value="BANCO">Banco</option>
                 </select>
-                <label htmlFor="tipoAgente" style={labelStyle}>Tipo de agente</label>
+                <label htmlFor="tipoAgente" className="auth-label">Tipo de agente</label>
               </div>
             </>
           )}
 
           <div className="form-floating mb-2">
-            <input type="email" className="form-control" id="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} style={inputStyle} />
-            <label htmlFor="email" style={labelStyle}>Email</label>
+            <input type="email" className="form-control auth-input" id="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <label htmlFor="email" className="auth-label">Email</label>
           </div>
 
           <div className="form-floating mb-2">
-            <input type="password" className="form-control" id="senha" placeholder="Senha" value={password} onChange={(e) => setPassword(e.target.value)} style={inputStyle} />
-            <label htmlFor="senha" style={labelStyle}>Senha</label>
+            <input type="password" className="form-control auth-input" id="senha" placeholder="Senha" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <label htmlFor="senha" className="auth-label">Senha</label>
           </div>
 
           <div className="form-floating mb-3">
-            <input type="password" className="form-control" id="confirmarSenha" placeholder="Confirmar senha" value={confirmarSenha} onChange={(e) => setConfirmarSenha(e.target.value)} style={inputStyle} />
-            <label htmlFor="confirmarSenha" style={labelStyle}>Confirmar senha</label>
+            <input type="password" className="form-control auth-input" id="confirmarSenha" placeholder="Confirmar senha" value={confirmarSenha} onChange={(e) => setConfirmarSenha(e.target.value)} />
+            <label htmlFor="confirmarSenha" className="auth-label">Confirmar senha</label>
           </div>
 
           {error && <p className="text-danger">{error}</p>}
@@ -260,19 +211,13 @@ export default function Cadastro() {
 
           <button
             type="submit"
-            className="btn w-100 mb-2"
-            style={{
-              backgroundColor: "#7c3aed",
-              color: "#fff",
-              fontWeight: "bold",
-              boxShadow: "0 0 14px rgba(124, 58, 237, 0.75)",
-            }}
+            className="btn w-100 mb-2 btn-drive-primary"
           >
             Cadastrar
           </button>
 
           <p className="mb-0">
-            <NavLink to="/login" style={{ color: "#60a5fa" }}>
+            <NavLink to="/login" className="link-accent">
               Já tem conta? Entrar
             </NavLink>
           </p>

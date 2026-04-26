@@ -19,25 +19,18 @@ export default function Header() {
   }
 
   const navClass = ({ isActive }) =>
-    `nav-link px-3 ${isActive ? "text-white active-driveflix" : "text-light"
+    `nav-link header-nav-link px-3 ${isActive ? "text-white active-driveflix" : "text-light"
     }`;
 
   return (
-    <div
-      className="px-3 py-2"
-      style={{
-        background: "#0b0b14",
-        borderBottom: "1px solid #7c3aed",
-      }}
-    >
+    <div className="header-shell">
       <ul className="nav align-items-center">
         <li className="nav-item me-3">
-          <NavLink to="/" className="nav-link p-0">
+          <NavLink to="/" className="nav-link header-nav-link p-0">
             <img
               src="/driveflix-icon.png"
               alt="Logo"
-              className="rounded-circle"
-              style={{ width: "42px", height: "42px" }}
+              className="rounded-circle header-logo"
             />
           </NavLink>
         </li>
@@ -119,8 +112,7 @@ export default function Header() {
             <li className="nav-item">
               <button
                 onClick={handleLogout}
-                className="nav-link text-light btn btn-link px-3"
-                style={{ textDecoration: "none" }}
+                className="nav-link header-nav-link text-light btn btn-link px-3 text-decoration-none"
               >
                 Sair
               </button>
@@ -128,25 +120,6 @@ export default function Header() {
           </>
         )}
       </ul>
-
-      <style>
-        {`
-          .nav-link {
-            border: none !important;
-            background: transparent !important;
-            transition: 0.2s ease;
-          }
-
-          .nav-link:hover {
-            color: #a855f7 !important;
-          }
-
-          .active-driveflix {
-            color: #a855f7 !important;
-            font-weight: 600;
-          }
-        `}
-      </style>
     </div>
   );
 }
