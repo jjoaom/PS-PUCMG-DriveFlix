@@ -116,36 +116,34 @@ INSERT INTO public.clients (id, address, cpf, name, phone, rg, renda) VALUES
     (20, 'Rua Cantor Luiz Gonzaga, 462', '12345679123', 'toshiro', '12123456789', '123456799', 0);
 
 INSERT INTO public.carros (id, imagem_url, marca, modelo, placa, preco, status, agent_id) VALUES
-    (2, '/cars/tcross.jpeg', 'Volkswagen', 'T-Cross', 'ABC1A01', 180, 'disponivel', 15),
-    (3, '/cars/tracker.jpeg', 'Chevrolet', 'Tracker', 'ABC1A02', 190, 'disponivel', 15),
-    (4, '/cars/kicks.png', 'Nissan', 'Kicks', 'ABC1A03', 170, 'disponivel', 15),
-    (5, '/cars/etios.jpg', 'Toyota', 'Etios', 'ABC1A04', 120, 'alugado', 15),
-    (6, '/cars/corolla.jpeg', 'Toyota', 'Corolla', 'ABC1A05', 220, 'disponivel', 15),
-    (7, '/cars/compass.jpg', 'Jeep', 'Compass', 'ABC1A06', 280, 'manutencao', 15),
-    (8, '/cars/renagede.jpg', 'Jeep', 'Renegade', 'ABC1A07', 160, 'disponivel', 15),
-    (9, '/cars/fastback.jpg', 'Fiat', 'Fastback', 'ABC1A08', 175, 'disponivel', 15),
-    (10, '/cars/gol.jpg', 'Volkswagen', 'Gol', 'ABC1A09', 100, 'alugado', 15),
-    (11, '/cars/polo.jpg', 'Volkswagen', 'Polo', 'ABC1A10', 130, 'disponivel', 15),
-    (12, '/cars/hr20.jpeg', 'Honda', 'HR-V', 'ABC1A11', 210, 'disponivel', 16),
-    (13, '/cars/pulse.jpg', 'Fiat', 'Pulse', 'ABC1A12', 150, 'disponivel', 16),
-    (14, '/cars/argo.jpeg', 'Fiat', 'Argo', 'ABC1A13', 120, 'disponivel', 16),
-    (15, '/cars/hb20.png', 'Hyundai', 'HB20', 'ABC1A14', 125, 'disponivel', 16),
-    (16, '/cars/onix.jpg', 'Chevrolet', 'Onix', 'ABC1A15', 130, 'alugado', 16),
-    (17, '/cars/kwid.jpeg', 'Renault', 'Kwid', 'ABC1A16', 90, 'disponivel', 16),
-    (18, '/cars/uninho.jpg', 'Fiat', 'Uno', 'ABC1A17', 80, 'manutencao', 16),
-    (19, '/cars/opala1967.jpg', 'Chevrolet', 'Opala', 'ABC1A18', 350, 'disponivel', 16),
-    (20, '/cars/batmobile.jpeg', 'Custom', 'Batmobile', 'BAT1MOB', 1000, 'disponivel', 16),
-    (21, '/cars/mysteryMachine.jpg', 'Custom', 'Mystery Machine', 'SCO0BY1', 400, 'disponivel', 16),
-    (22, NULL, 'Desconhecido', 'Modelo Desconhecido', 'UNKNOWN0', 0, 'indisponivel', 15),
-    (26, NULL, 'Desconhecido', 'Modelo Desconhecido', 'UNKNOWN1', 0, 'indisponivel', 15),
-    (27, '/uploads/a7ca382b-ed27-442e-873d-de4758405a11.jpg', 'DeLorean', 'DMC-12', 'ASD-9874', 1100, 'disponivel', 16);
+    (2, '/uploads/tcross.jpeg', 'Volkswagen', 'T-Cross', 'ABC1A01', 180, 'disponivel', 15),
+    (3, '/uploads/tracker.jpeg', 'Chevrolet', 'Tracker', 'ABC1A02', 190, 'disponivel', 15),
+    (4, '/uploads/kicks.png', 'Nissan', 'Kicks', 'ABC1A03', 170, 'disponivel', 15),
+    (5, '/uploads/etios.jpg', 'Toyota', 'Etios', 'ABC1A04', 120, 'alugado', 15),
+    (6, '/uploads/corolla.jpeg', 'Toyota', 'Corolla', 'ABC1A05', 220, 'disponivel', 15),
+    (7, '/uploads/compass.jpg', 'Jeep', 'Compass', 'ABC1A06', 280, 'manutencao', 15),
+    (8, '/uploads/renagede.jpg', 'Jeep', 'Renegade', 'ABC1A07', 160, 'disponivel', 15),
+    (9, '/uploads/fastback.jpg', 'Fiat', 'Fastback', 'ABC1A08', 175, 'disponivel', 15),
+    (10, '/uploads/gol.jpg', 'Volkswagen', 'Gol', 'ABC1A09', 100, 'alugado', 15),
+    (11, '/uploads/polo.jpg', 'Volkswagen', 'Polo', 'ABC1A10', 130, 'disponivel', 15),
+    (12, '/uploads/hr20.jpeg', 'Honda', 'HR-V', 'ABC1A11', 210, 'disponivel', 16),
+    (13, '/uploads/pulse.jpg', 'Fiat', 'Pulse', 'ABC1A12', 150, 'disponivel', 16),
+    (14, '/uploads/argo.jpeg', 'Fiat', 'Argo', 'ABC1A13', 120, 'disponivel', 16),
+    (15, '/uploads/hb20.png', 'Hyundai', 'HB20', 'ABC1A14', 125, 'disponivel', 16),
+    (16, '/uploads/onix.jpg', 'Chevrolet', 'Onix', 'ABC1A15', 130, 'alugado', 16),
+    (17, '/uploads/kwid.jpeg', 'Renault', 'Kwid', 'ABC1A16', 90, 'disponivel', 16),
+    (18, '/uploads/uninho.jpg', 'Fiat', 'Uno', 'ABC1A17', 80, 'manutencao', 16),
+    (19, '/uploads/opala1967.jpg', 'Chevrolet', 'Opala', 'ABC1A18', 350, 'disponivel', 16),
+    (20, '/uploads/batmobile.jpeg', 'Custom', 'Batmobile', 'BAT1MOB', 1000, 'disponivel', 16),
+    (21, '/uploads/mysteryMachine.jpg', 'Custom', 'Mystery Machine', 'SCO0BY1', 400, 'disponivel', 16),
+    (22, '/uploads/a7ca382b-ed27-442e-873d-de4758405a11.jpg', 'DeLorean', 'DMC-12', 'ASD-9874', 1100, 'disponivel', 16);
 
 INSERT INTO public.pedidos (id, car_id, client_id, data_criacao, parecer_financeiro, status) VALUES
     (1, 2, 4, '2026-04-23 22:15:06.26969', 'EM_ANALISE', 'PENDENTE'),
     (2, 22, 4, '2026-04-23 22:23:13.715936', 'EM_ANALISE', 'PENDENTE'),
     (3, 4, 4, '2026-04-23 22:34:40.268567', 'EM_ANALISE', 'PENDENTE'),
-    (5, 26, 3, '2026-04-25 10:40:44.672319', 'EM_ANALISE', 'PENDENTE'),
-    (6, 27, 4, '2026-04-25 11:25:51.019118', 'EM_ANALISE', 'PENDENTE');
+    (5, 18, 3, '2026-04-25 10:40:44.672319', 'EM_ANALISE', 'PENDENTE'),
+    (6, 12, 4, '2026-04-25 11:25:51.019118', 'EM_ANALISE', 'PENDENTE');
 
 SELECT setval('public.users_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.users), true);
 SELECT setval('public.carros_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.carros), true);
