@@ -11,7 +11,7 @@ import FormularioPedidos from "./pages/Pedidos/FormularioPedido.jsx";
 import MeusCarros from "./pages/CarrosAgentes/CarrosAgente.jsx";
 import CadastroCarro  from "./pages/CarrosAgentes/CadastroCarro.jsx";
 import GerenciarPedidos  from "./pages/GerenciarPedidos/GerenciarPedidos.jsx";
-
+import SceneLayout from "./pages/homepage/SceneLayout.jsx"
 
 
 //icones importados de https://react-icons.github.io/react-icons/ em cada componente segregado
@@ -21,12 +21,12 @@ function App() {
     <>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<SceneLayout><Home /></SceneLayout>} />
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/MeusPedidos" element={<MeusPedidos />} />
         <Route path="/pedido/:carId" element={<FormularioPedidos />} />
-        <Route path="/Catalogo" element={<Catalogo />} />
+        <Route path="/Catalogo" element={<SceneLayout><Catalogo /></SceneLayout>} />
         <Route path="/Perfil" element={<Perfil />} />
         <Route path="/carros" element={<MeusCarros />} />
         <Route path="/cadastro-carro" element={<CadastroCarro />} />

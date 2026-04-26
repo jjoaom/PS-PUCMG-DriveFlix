@@ -78,8 +78,6 @@ export default function GerenciarPedidos() {
 
   return (
     <>
-      <Scene />
-
       <div
         className="container-fluid px-4 py-4"
         style={{
@@ -87,47 +85,48 @@ export default function GerenciarPedidos() {
           minHeight: "100vh",
         }}
       >
+        
         <div className="container-fluid">
-            <div className="d-flex align-items-center mb-4 flex-wrap">
-            
+          <div className="d-flex align-items-center mb-4 flex-wrap">
+
             {/* ESQUERDA */}
             <h2 className="text-white m-0 me-auto">Pedidos de Aluguel</h2>
 
             {/* CENTRO */}
             <div className="mx-auto" style={{ width: "400px" }}>
-                <input
+              <input
                 type="text"
                 placeholder="Buscar por cliente, carro..."
                 className="form-control text-center"
                 value={busca}
                 onChange={(e) => setBusca(e.target.value)}
                 style={{
-                    height: "45px",
-                    backgroundColor: "#111827",
-                    color: "#fff",
-                    border: "1px solid #374151"
+                  height: "45px",
+                  backgroundColor: "#111827",
+                  color: "#fff",
+                  border: "1px solid #374151"
                 }}
-                />
+              />
             </div>
 
             {/* DIREITA */}
             <select
-                className="form-select ms-auto"
-                value={ordem}
-                onChange={(e) => setOrdem(e.target.value)}
-                style={{
+              className="form-select ms-auto"
+              value={ordem}
+              onChange={(e) => setOrdem(e.target.value)}
+              style={{
                 width: "150px",
                 height: "45px",
                 backgroundColor: "#111827",
                 color: "#fff",
                 border: "1px solid #374151"
-                }}
+              }}
             >
-                <option value="recentes">Recentes</option>
-                <option value="antigos">Antigos</option>
+              <option value="recentes">Recentes</option>
+              <option value="antigos">Antigos</option>
             </select>
 
-            </div>
+          </div>
 
           {loading && <p className="text-white">Carregando...</p>}
           {erro && <p className="text-danger">{erro}</p>}

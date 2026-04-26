@@ -2,10 +2,6 @@
 --
 -- This file is a cleaned, UTF-8-friendly version of the original dump.
 -- It keeps the current data model and seed data, but removes pg_dump noise.
---
--- Note: pedidos still contains legacy rows with car_id values that do not
--- currently exist in carros, so this script intentionally keeps pedidos
--- without foreign keys until the seed data is repaired.
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -78,7 +74,13 @@ CREATE TABLE public.pedidos (
     client_id BIGINT NOT NULL,
     data_criacao TIMESTAMP(6) WITHOUT TIME ZONE,
     parecer_financeiro VARCHAR(255),
-    status VARCHAR(255)
+    status VARCHAR(255),
+    CONSTRAINT fk_pedidos_car
+        FOREIGN KEY (car_id)
+        REFERENCES public.carros (id),
+    CONSTRAINT fk_pedidos_client
+        FOREIGN KEY (client_id)
+        REFERENCES public.clients (id)
 );
 
 INSERT INTO public.users (id, email, name, password) VALUES
@@ -100,7 +102,7 @@ INSERT INTO public.users (id, email, name, password) VALUES
     (17, 'vi@gmail.com', NULL, '123456'),
     (19, 'vin@gmail.com', NULL, '123456'),
     (20, 'toshi@gmail.com', NULL, '123456'),
-    (21, 'teste@gmail.com', NULL, 'teste');
+    (21, 'teste', NULL, 'teste');
 
 INSERT INTO public.agentes (id, cnpj, razao_social, tipo) VALUES
     (15, '123366665589', 'Tambasa', 'EMPRESA'),
@@ -109,7 +111,7 @@ INSERT INTO public.agentes (id, cnpj, razao_social, tipo) VALUES
 INSERT INTO public.clients (id, address, cpf, name, phone, rg, renda) VALUES
     (1, 'Rua A, 123', '12345678900', 'Diogo', '31999999999', '1234567', 0),
     (3, 'Rua A, 123', '12341678900', 'Diogo', '31999999999', '1234527', 1200),
-    (4, 'ab├ºnoasf├ºnjsa├ºknjafn├ºjaf├ºknj', '145266548', 'Vinny Vinicius', '319965896', '2365489', 1789),
+    (4, 'Rua B, 456', '145266548', 'Vinny Vinicius', '319965896', '2365489', 1789),
     (19, 'Rua Cantor Luiz Gonzaga, 462', '14589658741', 'Vinny Vinicius', '2155869658', '5648568', 0),
     (20, 'Rua Cantor Luiz Gonzaga, 462', '12345679123', 'toshiro', '12123456789', '123456799', 0);
 
@@ -134,18 +136,18 @@ INSERT INTO public.carros (id, imagem_url, marca, modelo, placa, preco, status, 
     (19, '/cars/opala1967.jpg', 'Chevrolet', 'Opala', 'ABC1A18', 350, 'disponivel', 16),
     (20, '/cars/batmobile.jpeg', 'Custom', 'Batmobile', 'BAT1MOB', 1000, 'disponivel', 16),
     (21, '/cars/mysteryMachine.jpg', 'Custom', 'Mystery Machine', 'SCO0BY1', 400, 'disponivel', 16),
+    (22, NULL, 'Desconhecido', 'Modelo Desconhecido', 'UNKNOWN0', 0, 'indisponivel', 15),
+    (26, NULL, 'Desconhecido', 'Modelo Desconhecido', 'UNKNOWN1', 0, 'indisponivel', 15),
     (27, '/uploads/a7ca382b-ed27-442e-873d-de4758405a11.jpg', 'DeLorean', 'DMC-12', 'ASD-9874', 1100, 'disponivel', 16);
 
 INSERT INTO public.pedidos (id, car_id, client_id, data_criacao, parecer_financeiro, status) VALUES
     (1, 2, 4, '2026-04-23 22:15:06.26969', 'EM_ANALISE', 'PENDENTE'),
-    (2, 0, 4, '2026-04-23 22:23:13.715936', 'EM_ANALISE', 'PENDENTE'),
+    (2, 22, 4, '2026-04-23 22:23:13.715936', 'EM_ANALISE', 'PENDENTE'),
     (3, 4, 4, '2026-04-23 22:34:40.268567', 'EM_ANALISE', 'PENDENTE'),
     (5, 26, 3, '2026-04-25 10:40:44.672319', 'EM_ANALISE', 'PENDENTE'),
     (6, 27, 4, '2026-04-25 11:25:51.019118', 'EM_ANALISE', 'PENDENTE');
 
 SELECT setval('public.users_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.users), true);
-SELECT setval('public.agentes_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.agentes), true);
-SELECT setval('public.clients_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.clients), true);
 SELECT setval('public.carros_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.carros), true);
 SELECT setval('public.pedidos_id_seq', (SELECT COALESCE(MAX(id), 1) FROM public.pedidos), true);
 

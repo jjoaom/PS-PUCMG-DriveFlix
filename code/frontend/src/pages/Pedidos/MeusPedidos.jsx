@@ -52,7 +52,7 @@ export default function MeusPedidos() {
 
   return (
     <>
-      <Scene />
+      
 
       <div
         className="container-fluid px-4 py-4"

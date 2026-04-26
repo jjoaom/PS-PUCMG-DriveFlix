@@ -19,8 +19,7 @@ export default function Header() {
   }
 
   const navClass = ({ isActive }) =>
-    `nav-link px-3 ${
-      isActive ? "text-white active-driveflix" : "text-light"
+    `nav-link px-3 ${isActive ? "text-white active-driveflix" : "text-light"
     }`;
 
   return (
@@ -81,11 +80,13 @@ export default function Header() {
               </NavLink>
             </li>
 
-            <li className="nav-item">
-              <NavLink to="/MeusPedidos" className={navClass}>
-                <GiCarKey /> Pedidos
-              </NavLink>
-            </li>
+            {isLogged && (
+              <li className="nav-item">
+                <NavLink to="/MeusPedidos" className={navClass}>
+                  <GiCarKey /> Pedidos
+                </NavLink>
+              </li>
+            )}
           </>
         )}
 

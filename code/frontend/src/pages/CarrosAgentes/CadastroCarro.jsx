@@ -63,18 +63,17 @@ export default function CadastroCarro() {
 
   return (
     <>
-      <Scene />
+      
 
       <div
         className="container-fluid d-flex justify-content-center align-items-center py-5"
         style={{ backgroundColor: "#0b0f1a"}}
       >
+        
         <div
-          className="card p-4 w-100"
+          className="card p-4 w-100 text-white"
           style={{
             maxWidth: "500px",
-            backgroundColor: "#111827",
-            color: "#fff",
             border: "1px solid #1f2937",
             borderRadius: "12px"
           }}

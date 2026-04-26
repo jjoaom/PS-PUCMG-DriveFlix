@@ -71,15 +71,9 @@ export default function CarrosAgente() {
 
   return (
     <>
-      <Scene />
-
       <div
-        className="container-fluid px-4 py-4"
-        style={{
-          backgroundColor: "#0b0f1a",
-          minHeight: "100vh",
-        }}
-      >
+        className="container-fluid px-4 py-4">
+        
         {/* HEADER */}
         <div className="d-flex align-items-center mb-4 flex-wrap">
 

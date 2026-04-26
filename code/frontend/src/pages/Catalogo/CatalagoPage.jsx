@@ -57,8 +57,6 @@ export default function Catalogo() {
 
   return (
     <>
-      <Scene />
-
       <div
         className="container-fluid px-4 py-4"
         style={{
@@ -66,6 +64,7 @@ export default function Catalogo() {
           minHeight: "100vh",
         }}
       >
+        
         {/* HEADER */}
         <div className="d-flex align-items-center mb-4 flex-wrap">
 

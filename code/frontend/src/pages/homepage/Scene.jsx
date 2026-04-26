@@ -7,8 +7,11 @@ import Lights from "./Lights";
 export default function Scene() {
   return (
     <div className="w-100" style={{ height: "280px" }}>
-      <Canvas camera={{ position: [0, 2, 6], fov: 50 }}>
-        <color attach="background" args={["#07070f"]} />
+      <Canvas
+        camera={{ position: [0, 2, 6], fov: 50 }}
+        gl={{ alpha: true }}
+        style={{ background: "transparent" }}
+      >
         <Lights />
 
         <Suspense fallback={null}>
